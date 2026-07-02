@@ -8,20 +8,25 @@
 
 /* Pagina */
 
-body{
-    width:100vw;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:rgb(0, 0, 0);
+body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: black;
 }
 
 
 /* Contenitore */
 
-.hero{
-    text-align:center;
+.hero {
+    text-align: center;
+    padding: 40px 24px;
+    max-width: 100%;
+}
+
+.content{
+    width: 900px;      /* oppure 1000px */
+    margin: 0 auto;    /* centra il blocco */
 }
 
 /* Titolo */
@@ -34,7 +39,7 @@ body{
     letter-spacing: -0.04em;
 
     color: rgb(255, 255, 255);
-    -webkit-text-stroke: 0.25px white;  /* solo il bordo bianco */
+    -webkit-text-stroke: 0.5px white;  /* solo il bordo bianco */
 
     background: linear-gradient(
         120deg,
@@ -68,7 +73,7 @@ body{
     font-weight:100;
     text-transform: uppercase;
 
-    color:#9d9d9d;
+    color:#d9d9d9;
 }
 
 /* Authors */
@@ -84,30 +89,33 @@ body{
     color:#747474;
 }
 
-.cover-image{
-    width:70vw;
-    max-width:1200px;
-    display:block;
-    margin:auto;
+.cover-image {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 40px auto;
 }
 
-.about-title{
+.description-title{
+    
 
     max-width: 1000px;
     margin-top:2rem;
+    margin-left: 12rem;
 
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1rem;
-    font-weight:300;
+    font-weight:500;
     text-align: left;
 
-    color:#b3b3b3;
+    color:#d8d8d8;
 }
 
-.about{
+.description{
 
     max-width: 1000px;
     margin-top:1rem;
+    margin-left: 11rem;
 
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1rem;
@@ -116,4 +124,17 @@ body{
     text-align: left;
 
     color:#747474;
+}
+
+/*links*/
+a, 
+a:visited {
+    color: #747474;
+}
+a:hover {
+    color: #d9d9d9;
+    text-decoration: underline;
+}
+a:active {
+    color: #747474;
 }
