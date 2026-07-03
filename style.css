@@ -15,6 +15,56 @@ body {
     background: black;
 }
 
+header {
+  display: flex;                      /* Use flexbox layout for flexible positioning */
+  justify-content: space-between;     /* Spread items evenly across the header */
+  align-items: center;                /* Center items vertically */
+  padding: 24px 40px;                 /* Add 24px top/bottom, 40px left/right spacing inside */
+  border-bottom: 1px solid #ccc;      /* Add a light gray line at the bottom */
+  font-size: 14px;                    /* Set font size to 14 pixels */
+}
+
+/* Style the left section of the header */
+header .left {
+  color: #aaa;                        /* Set text color to light gray */
+}
+
+/* Style the center section of the header */
+header .center {
+  font-weight: 400;                   /* Set font weight to normal (not bold) */
+  text-align: center;    
+  color: #aaa;              /* Center the text horizontally */
+}
+
+/* Style the span element inside the center section */
+header .center span {
+  font-size: 12px;                    /* Make this text smaller (12 pixels) */
+  color: #888;                        /* Set text color to medium gray */
+}
+
+/* Style links in the right section of the header */
+header .right a {
+  color: #000;                        /* Set link color to black */
+  text-decoration: none;              /* Remove the underline from links */
+  font-weight: 400;                   /* Set font weight to normal */
+}
+
+/* Style the project year/date */
+.project-meta {
+  font-size: 14px;                    /* Set font size to 14 pixels */
+  color: #999; 
+  margin-top: 8px;                    /* Set text color to light gray */
+  margin-bottom: 8px;  
+  margin-left: 3rem;               /* Add 8 pixels of space below this element */
+}
+
+/* Style the project subtitle */
+.project-subtitle {
+  font-size: 16px;                    /* Set font size to 16 pixels */
+  color: #999;                        /* Set text color to light gray */
+  margin-bottom: 24px;                /* Add 24 pixels of space below this element */
+  margin-left: 3rem;   
+}
 
 /* Contenitore */
 
