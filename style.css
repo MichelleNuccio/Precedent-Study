@@ -1,9 +1,18 @@
+/*
+  style-commentato.css
+  English-commented version of the original stylesheet.
+  The page uses a dark technical grid, dashed borders, monospace type,
+  and a modular layout based on a 12-column system.
+*/
+
+/* Global reset: removes default browser spacing and makes element sizing predictable. */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Global design variables: reusable colors and the base grid unit. */
 :root {
     --bg: #191817;
     --cell: #1f1e1d;
@@ -17,10 +26,12 @@
     --unit: 64px;
 }
 
+/* Enables smooth scrolling when navigating to internal anchors. */
 html {
     scroll-behavior: smooth;
 }
 
+/* Main page styling: full-width page, dark grid background, text color, and monospace font. */
 body {
     width: 100%;
     min-height: 100vh;
@@ -35,6 +46,7 @@ body {
     font-family: "Courier New", Courier, monospace;
 }
 
+/* Fixed decorative frame and stronger grid overlay behind the page content. */
 body::before {
     content: "";
     position: fixed;
@@ -60,6 +72,7 @@ body::before {
         );
 }
 
+/* Small circular technical mark fixed at the bottom-right of the viewport. */
 body::after {
     content: "";
     position: fixed;
@@ -75,6 +88,7 @@ body::after {
         linear-gradient(-45deg, transparent 48%, var(--grid) 49%, var(--grid) 51%, transparent 52%);
 }
 
+/* Shared page width: these major sections are centered and capped at 1184px. */
 header,
 main,
 .hero,
@@ -88,6 +102,7 @@ main,
     margin-left: auto;
 }
 
+/* Top header: a 12-column grid with small uppercase metadata styling. */
 header {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -101,26 +116,31 @@ header {
     text-transform: uppercase;
 }
 
+/* Header cells receive inner spacing and dashed grid borders. */
 header > div {
     border-right: 1px dashed var(--grid);
     border-bottom: 1px dashed var(--grid);
     padding: 10px 12px;
 }
 
+/* Left header label spans 3 of the 12 columns. */
 header .left {
     grid-column: span 3;
 }
 
+/* Center header label spans 6 columns and is visually centered. */
 header .center {
     grid-column: span 6;
     text-align: center;
     color: var(--ink);
 }
 
+/* Secondary header line uses a muted color. */
 header .center span {
     color: var(--muted);
 }
 
+/* Metadata row under the header, also using a 12-column grid. */
 main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -132,6 +152,7 @@ main {
     text-transform: uppercase;
 }
 
+/* Shared styling for project metadata cells. */
 .project-meta,
 .project-subtitle {
     min-height: var(--unit);
@@ -140,14 +161,17 @@ main {
     border-bottom: 1px dashed var(--grid);
 }
 
+/* Year cell: spans 2 columns. */
 .project-meta {
     grid-column: span 2;
 }
 
+/* Name/subtitle cell: spans 4 columns. */
 .project-subtitle {
     grid-column: span 4;
 }
 
+/* Hero section: main title area arranged on the same 12-column grid. */
 .hero {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -155,6 +179,7 @@ main {
     background: rgba(31, 30, 29, 0.52);
 }
 
+/* Shared borders for the title, subtitle, and author blocks. */
 .title,
 .subtitle,
 .author {
@@ -162,9 +187,10 @@ main {
     border-bottom: 1px dashed var(--grid);
 }
 
+/* Main title: the largest typographic block, spanning 7 columns. */
 .title {
     grid-column: span 7;
-    min-height: calc(var(--unit) * 7);
+    min-height: calc(var(--unit) * 0.5);
     padding: 8px 12px;
     overflow-wrap: anywhere;
     color: var(--ink);
@@ -176,6 +202,7 @@ main {
     text-transform: none;
 }
 
+/* Hero subtitle: smaller explanatory text spanning 3 columns. */
 .subtitle {
     grid-column: span 3;
     min-height: calc(var(--unit) * 4);
@@ -188,6 +215,7 @@ main {
     text-transform: none;
 }
 
+/* Author block: compact credit text spanning 2 columns. */
 .author {
     grid-column: span 2;
     min-height: calc(var(--unit) * 4);
@@ -198,10 +226,12 @@ main {
     line-height: 1.18;
 }
 
+/* Hidden placeholder element; it does not appear on the page. */
 .content {
     display: none;
 }
 
+/* Cover image: full-width image with fixed modular height and a grayscale/contrast treatment. */
 .cover-image {
     display: block;
     width: 100%;
@@ -215,6 +245,7 @@ main {
     mix-blend-mode: luminosity;
 }
 
+/* Shared structure for all text sections: grid layout, dashed left border, and small text. */
 .description-title,
 .description-subtitle,
 .description,
@@ -222,21 +253,23 @@ main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     border-left: 1px dashed var(--grid);
-    color: var(--soft);
+    color: white;
     font-size: 12px;
     line-height: 1.18;
 }
 
+/* Section heading style. */
 .description-title {
     min-height: var(--unit);
     margin-top: 0;
-    color: var(--ink);
-    font-size: 18px;
-    font-weight: 400;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
     line-height: 1;
     text-transform: none;
 }
 
+/* Decorative left cell for section headings. */
 .description-title::before {
     content: "";
     position: absolute;
@@ -248,6 +281,7 @@ main {
         radial-gradient(circle, transparent 42%, var(--grid) 43%, var(--grid) 45%, transparent 46%);
 }
 
+/* Allows the decorative ::before elements to be positioned relative to each section. */
 .description-title,
 .description-subtitle,
 .description,
@@ -255,7 +289,9 @@ main {
     position: relative;
 }
 
+/* Heading padding leaves space for the decorative left column. */
 .description-title {
+    display: block;
     padding-left: calc(100% / 12 + 12px);
     padding-top: 12px;
     padding-bottom: 10px;
@@ -263,16 +299,19 @@ main {
     border-bottom: 1px dashed var(--grid);
 }
 
+/* Subsection heading: leaves two grid columns empty/decorative on the left. */
 .description-subtitle {
+    display: block;
     min-height: var(--unit);
     padding: 12px 12px 10px calc((100% / 12) * 2 + 12px);
     border-right: 1px dashed var(--grid);
     border-bottom: 1px dashed var(--grid);
-    color: var(--ink);
-    font-size: 15px;
+    color: white;
+    font-size: 16px;
     line-height: 1.12;
 }
 
+/* Decorative left band for subsection headings. */
 .description-subtitle::before {
     content: "";
     position: absolute;
@@ -283,17 +322,20 @@ main {
         linear-gradient(90deg, transparent calc(50% - 1px), var(--grid) calc(50% - 1px), var(--grid) 50%, transparent 50%);
 }
 
+/* Paragraph blocks: text starts after three decorative grid columns. */
 .description {
+    display: block;
     min-height: calc(var(--unit) * 2);
     padding: 13px 12px 12px calc((100% / 12) * 3 + 12px);
     border-right: 1px dashed var(--grid);
     border-bottom: 1px dashed var(--grid);
-    color: var(--soft);
-    font-size: 12px;
-    font-weight: 400;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
     line-height: 1.22;
 }
 
+/* Decorative three-column band for paragraph blocks. */
 .description::before {
     content: "";
     position: absolute;
@@ -310,6 +352,7 @@ main {
         );
 }
 
+/* List blocks: remove default bullets and start text after four decorative columns. */
 .description-list {
     min-height: var(--unit);
     padding: 12px 12px 12px calc((100% / 12) * 4 + 12px);
@@ -318,6 +361,7 @@ main {
     list-style: none;
 }
 
+/* Decorative four-column band for list blocks. */
 .description-list::before {
     content: "";
     position: absolute;
@@ -334,12 +378,14 @@ main {
         );
 }
 
+/* Individual list items: spacing plus room for a custom marker. */
 .description-list li {
     position: relative;
     margin-bottom: 4px;
     padding-left: 16px;
 }
 
+/* Custom list marker: a short horizontal line instead of a standard bullet. */
 .description-list li::before {
     content: "";
     position: absolute;
@@ -350,34 +396,38 @@ main {
 }
 
 .research-question {
+    display: block;
     min-height: calc(var(--unit) * 2);
     color: var(--ink);
-    background:
-        linear-gradient(90deg, rgba(159, 52, 44, 0.2), transparent 45%),
-        rgba(240, 238, 232, 0.035);
     font-size: 18px;
     line-height: 1.15;
 }
 
+/* Default and visited link styles. */
 a,
 a:visited {
     color: var(--ink);
     text-decoration: none;
 }
 
+/* Hover state for links. */
 a:hover {
     color: var(--mark);
 }
 
+/* Active/clicked state for links. */
 a:active {
     color: var(--accent);
 }
 
+/* Desktop-only variation: shifts some sections across the grid to create visual rhythm. */
 @media (min-width: 900px) {
+    /* Every third section title starts after six columns instead of one. */
     .description-title:nth-of-type(3n + 1) {
         padding-left: calc((100% / 12) * 6 + 12px);
     }
 
+    /* The decorative band for those shifted titles also expands to six columns. */
     .description-title:nth-of-type(3n + 1)::before {
         width: calc((100% / 12) * 6);
         background:
@@ -390,37 +440,45 @@ a:active {
             );
     }
 
+    /* Every fourth paragraph/list is also shifted farther right. */
     .description:nth-of-type(4n),
     .description-list:nth-of-type(4n) {
         padding-left: calc((100% / 12) * 6 + 12px);
     }
 
+    /* Expands the decorative band for those shifted paragraphs/lists. */
     .description:nth-of-type(4n)::before,
     .description-list:nth-of-type(4n)::before {
         width: calc((100% / 12) * 6);
     }
 }
 
+/* Responsive rules for tablets and phones. */
 @media (max-width: 860px) {
+    /* Smaller base grid unit for narrow screens. */
     :root {
         --unit: 48px;
     }
 
+    /* Reduces page padding on smaller screens. */
     body {
         padding: 10px;
     }
 
+    /* Adjusts the fixed frame to match the smaller page padding. */
     body::before {
         inset: 10px;
         border-radius: 18px;
     }
 
+    /* Header, metadata, and hero grids change from 12 columns to 6 columns. */
     header,
     main,
     .hero {
         grid-template-columns: repeat(6, 1fr);
     }
 
+    /* Main header/hero cells become full-width on mobile. */
     header .left,
     header .center,
     .project-meta,
@@ -431,21 +489,25 @@ a:active {
         grid-column: 1 / -1;
     }
 
+    /* Reduces the main title size for small screens. */
     .title {
         min-height: calc(var(--unit) * 6);
         font-size: 52px;
         line-height: 0.98;
     }
 
+    /* Keeps subtitle and author blocks compact on mobile. */
     .subtitle,
     .author {
         min-height: calc(var(--unit) * 2);
     }
 
+    /* Reduces the cover image height on mobile. */
     .cover-image {
         height: calc(var(--unit) * 6);
     }
 
+    /* Description sections switch to a 6-column system. */
     .description-title,
     .description-subtitle,
     .description,
@@ -454,6 +516,7 @@ a:active {
         grid-template-columns: repeat(6, 1fr);
     }
 
+    /* All description blocks leave one decorative column on the left. */
     .description-title,
     .description-subtitle,
     .description,
@@ -462,6 +525,7 @@ a:active {
         padding-left: calc((100% / 6) + 12px);
     }
 
+    /* Decorative bands become one column wide in the 6-column mobile grid. */
     .description-title::before,
     .description-subtitle::before,
     .description::before,
@@ -469,7 +533,7 @@ a:active {
         width: calc(100% / 6);
     }
 
+    /* Smaller research question text for mobile. */
     .research-question {
         font-size: 15px;
     }
-}
