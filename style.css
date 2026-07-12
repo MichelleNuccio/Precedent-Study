@@ -1,539 +1,130 @@
-/*
-  style-commentato.css
-  English-commented version of the original stylesheet.
-  The page uses a dark technical grid, dashed borders, monospace type,
-  and a modular layout based on a 12-column system.
-*/
-
-/* Global reset: removes default browser spacing and makes element sizing predictable. */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Global design variables: reusable colors and the base grid unit. */
 :root {
-    --bg: #191817;
-    --cell: #1f1e1d;
-    --ink: #f0eee8;
-    --soft: #bcb8ad;
-    --muted: #7e7a72;
-    --grid: rgba(240, 238, 232, 0.38);
-    --grid-soft: rgba(240, 238, 232, 0.18);
-    --accent: #d8d2c3;
-    --mark: #9f342c;
-    --unit: 64px;
+  --background: #f3f0e8;
+  --black: #050505;
+  --white: #ffffff;
 }
 
-/* Enables smooth scrolling when navigating to internal anchors. */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Main page styling: full-width page, dark grid background, text color, and monospace font. */
+html,
 body {
-    width: 100%;
-    min-height: 100vh;
-    overflow-x: hidden;
-    padding: 16px;
-    background:
-        linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px),
-        linear-gradient(var(--grid-soft) 1px, transparent 1px),
-        var(--bg);
-    background-size: var(--unit) var(--unit);
-    color: var(--ink);
-    font-family: "Courier New", Courier, monospace;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--black);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Fixed decorative frame and stronger grid overlay behind the page content. */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 16px;
-    z-index: -1;
-    pointer-events: none;
-    border: 1px dashed var(--grid);
-    border-radius: 24px;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0,
-            transparent calc(var(--unit) - 1px),
-            var(--grid) calc(var(--unit) - 1px),
-            var(--grid) var(--unit)
-        ),
-        repeating-linear-gradient(
-            180deg,
-            transparent 0,
-            transparent calc(var(--unit) - 1px),
-            var(--grid) calc(var(--unit) - 1px),
-            var(--grid) var(--unit)
-        );
+#site {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 800ms ease;
 }
 
-/* Small circular technical mark fixed at the bottom-right of the viewport. */
-body::after {
-    content: "";
-    position: fixed;
-    right: 32px;
-    bottom: 32px;
-    width: 54px;
-    height: 54px;
-    pointer-events: none;
-    border: 1px dashed var(--grid);
-    border-radius: 50%;
-    background:
-        linear-gradient(45deg, transparent 48%, var(--grid) 49%, var(--grid) 51%, transparent 52%),
-        linear-gradient(-45deg, transparent 48%, var(--grid) 49%, var(--grid) 51%, transparent 52%);
+#site.is-visible {
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Shared page width: these major sections are centered and capped at 1184px. */
-header,
-main,
-.hero,
-.cover-image,
-.description-title,
-.description-subtitle,
-.description,
-.description-list {
-    max-width: 1184px;
-    margin-right: auto;
-    margin-left: auto;
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--background);
 }
 
-/* Top header: a 12-column grid with small uppercase metadata styling. */
-header {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    min-height: var(--unit);
-    border-top: 1px dashed var(--grid);
-    border-left: 1px dashed var(--grid);
-    color: var(--soft);
-    background: rgba(25, 24, 23, 0.82);
-    font-size: 12px;
-    line-height: 1.15;
-    text-transform: uppercase;
+.intro-copy {
+  position: absolute;
+  left: 4vw;
+  bottom: 8vh;
+  z-index: 2;
 }
 
-/* Header cells receive inner spacing and dashed grid borders. */
-header > div {
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
-    padding: 10px 12px;
+.intro-copy h1 {
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: 0.88;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
 }
 
-/* Left header label spans 3 of the 12 columns. */
-header .left {
-    grid-column: span 3;
+#typedSubtitle {
+  min-height: 1.4em;
+  margin: 1.5rem 0 0;
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.9rem, 1.6vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-/* Center header label spans 6 columns and is visually centered. */
-header .center {
-    grid-column: span 6;
-    text-align: center;
-    color: var(--ink);
+/* cursore della macchina da scrivere */
+#typedSubtitle::after {
+  content: "█";
+  margin-left: 0.15em;
+  animation: blink 700ms steps(1) infinite;
 }
 
-/* Secondary header line uses a muted color. */
-header .center span {
-    color: var(--muted);
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
-/* Metadata row under the header, also using a 12-column grid. */
-main {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    min-height: var(--unit);
-    border-left: 1px dashed var(--grid);
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.1;
-    text-transform: uppercase;
+#blackout {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+
+  background: var(--black);
+
+  /* inizialmente non copre la pagina */
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 1100ms cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* Shared styling for project metadata cells. */
-.project-meta,
-.project-subtitle {
-    min-height: var(--unit);
-    padding: 10px 12px;
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
+#blackout.is-active {
+  transform: scaleY(1);
 }
 
-/* Year cell: spans 2 columns. */
-.project-meta {
-    grid-column: span 2;
+#exploreButton {
+  opacity: 0;
+  pointer-events: none;
+
+  border: 1px solid var(--white);
+  background: var(--white);
+  color: var(--black);
+
+  padding: 1rem 2rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+  transition:
+    opacity 500ms ease,
+    background 200ms ease,
+    color 200ms ease;
 }
 
-/* Name/subtitle cell: spans 4 columns. */
-.project-subtitle {
-    grid-column: span 4;
+#exploreButton.is-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* Hero section: main title area arranged on the same 12-column grid. */
-.hero {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    border-left: 1px dashed var(--grid);
-    background: rgba(31, 30, 29, 0.52);
+#exploreButton:hover,
+#exploreButton:focus-visible {
+  background: var(--black);
+  color: var(--white);
 }
 
-/* Shared borders for the title, subtitle, and author blocks. */
-.title,
-.subtitle,
-.author {
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
+#intro.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms ease;
 }
-
-/* Main title: the largest typographic block, spanning 7 columns. */
-.title {
-    grid-column: span 7;
-    min-height: calc(var(--unit) * 0.5);
-    padding: 8px 12px;
-    overflow-wrap: anywhere;
-    color: var(--ink);
-    font-family: "Courier New", Courier, monospace;
-    font-size: 80px;
-    font-weight: 400;
-    line-height: 0.96;
-    letter-spacing: 0;
-    text-transform: none;
-}
-
-/* Hero subtitle: smaller explanatory text spanning 3 columns. */
-.subtitle {
-    grid-column: span 3;
-    min-height: calc(var(--unit) * 4);
-    padding: 13px 12px;
-    align-self: stretch;
-    color: var(--ink);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.2;
-    text-transform: none;
-}
-
-/* Author block: compact credit text spanning 2 columns. */
-.author {
-    grid-column: span 2;
-    min-height: calc(var(--unit) * 4);
-    padding: 13px 12px;
-    color: var(--soft);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.18;
-}
-
-/* Hidden placeholder element; it does not appear on the page. */
-.content {
-    display: none;
-}
-
-/* Cover image: full-width image with fixed modular height and a grayscale/contrast treatment. */
-.cover-image {
-    display: block;
-    width: 100%;
-    height: calc(var(--unit) * 7);
-    object-fit: cover;
-    margin-top: 0;
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
-    border-left: 1px dashed var(--grid);
-    filter: grayscale(1) contrast(1.22) brightness(0.74);
-    mix-blend-mode: luminosity;
-}
-
-/* Shared structure for all text sections: grid layout, dashed left border, and small text. */
-.description-title,
-.description-subtitle,
-.description,
-.description-list {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    border-left: 1px dashed var(--grid);
-    color: white;
-    font-size: 12px;
-    line-height: 1.18;
-}
-
-/* Section heading style. */
-.description-title {
-    min-height: var(--unit);
-    margin-top: 0;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1;
-    text-transform: none;
-}
-
-/* Decorative left cell for section headings. */
-.description-title::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: calc(100% / 12);
-    border-right: 1px dashed var(--grid);
-    background:
-        linear-gradient(45deg, transparent 48%, var(--grid) 49%, var(--grid) 51%, transparent 52%),
-        radial-gradient(circle, transparent 42%, var(--grid) 43%, var(--grid) 45%, transparent 46%);
-}
-
-/* Allows the decorative ::before elements to be positioned relative to each section. */
-.description-title,
-.description-subtitle,
-.description,
-.description-list {
-    position: relative;
-}
-
-/* Heading padding leaves space for the decorative left column. */
-.description-title {
-    display: block;
-    padding-left: calc(100% / 12 + 12px);
-    padding-top: 12px;
-    padding-bottom: 10px;
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
-}
-
-/* Subsection heading: leaves two grid columns empty/decorative on the left. */
-.description-subtitle {
-    display: block;
-    min-height: var(--unit);
-    padding: 12px 12px 10px calc((100% / 12) * 2 + 12px);
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
-    color: white;
-    font-size: 16px;
-    line-height: 1.12;
-}
-
-/* Decorative left band for subsection headings. */
-.description-subtitle::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: calc((100% / 12) * 2);
-    border-right: 1px dashed var(--grid);
-    background:
-        linear-gradient(90deg, transparent calc(50% - 1px), var(--grid) calc(50% - 1px), var(--grid) 50%, transparent 50%);
-}
-
-/* Paragraph blocks: text starts after three decorative grid columns. */
-.description {
-    display: block;
-    min-height: calc(var(--unit) * 2);
-    padding: 13px 12px 12px calc((100% / 12) * 3 + 12px);
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.22;
-}
-
-/* Decorative three-column band for paragraph blocks. */
-.description::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: calc((100% / 12) * 3);
-    border-right: 1px dashed var(--grid);
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0,
-            transparent calc(33.333% - 1px),
-            var(--grid) calc(33.333% - 1px),
-            var(--grid) 33.333%
-        );
-}
-
-/* List blocks: remove default bullets and start text after four decorative columns. */
-.description-list {
-    min-height: var(--unit);
-    padding: 12px 12px 12px calc((100% / 12) * 4 + 12px);
-    border-right: 1px dashed var(--grid);
-    border-bottom: 1px dashed var(--grid);
-    list-style: none;
-}
-
-/* Decorative four-column band for list blocks. */
-.description-list::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: calc((100% / 12) * 4);
-    border-right: 1px dashed var(--grid);
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0,
-            transparent calc(25% - 1px),
-            var(--grid) calc(25% - 1px),
-            var(--grid) 25%
-        );
-}
-
-/* Individual list items: spacing plus room for a custom marker. */
-.description-list li {
-    position: relative;
-    margin-bottom: 4px;
-    padding-left: 16px;
-}
-
-/* Custom list marker: a short horizontal line instead of a standard bullet. */
-.description-list li::before {
-    content: "";
-    position: absolute;
-    top: 0.55em;
-    left: 0;
-    width: 8px;
-    border-top: 1px solid var(--ink);
-}
-
-.research-question {
-    display: block;
-    min-height: calc(var(--unit) * 2);
-    color: var(--ink);
-    font-size: 18px;
-    line-height: 1.15;
-}
-
-/* Default and visited link styles. */
-a,
-a:visited {
-    color: var(--ink);
-    text-decoration: none;
-}
-
-/* Hover state for links. */
-a:hover {
-    color: var(--mark);
-}
-
-/* Active/clicked state for links. */
-a:active {
-    color: var(--accent);
-}
-
-/* Desktop-only variation: shifts some sections across the grid to create visual rhythm. */
-@media (min-width: 900px) {
-    /* Every third section title starts after six columns instead of one. */
-    .description-title:nth-of-type(3n + 1) {
-        padding-left: calc((100% / 12) * 6 + 12px);
-    }
-
-    /* The decorative band for those shifted titles also expands to six columns. */
-    .description-title:nth-of-type(3n + 1)::before {
-        width: calc((100% / 12) * 6);
-        background:
-            repeating-linear-gradient(
-                90deg,
-                transparent 0,
-                transparent calc(16.666% - 1px),
-                var(--grid) calc(16.666% - 1px),
-                var(--grid) 16.666%
-            );
-    }
-
-    /* Every fourth paragraph/list is also shifted farther right. */
-    .description:nth-of-type(4n),
-    .description-list:nth-of-type(4n) {
-        padding-left: calc((100% / 12) * 6 + 12px);
-    }
-
-    /* Expands the decorative band for those shifted paragraphs/lists. */
-    .description:nth-of-type(4n)::before,
-    .description-list:nth-of-type(4n)::before {
-        width: calc((100% / 12) * 6);
-    }
-}
-
-/* Responsive rules for tablets and phones. */
-@media (max-width: 860px) {
-    /* Smaller base grid unit for narrow screens. */
-    :root {
-        --unit: 48px;
-    }
-
-    /* Reduces page padding on smaller screens. */
-    body {
-        padding: 10px;
-    }
-
-    /* Adjusts the fixed frame to match the smaller page padding. */
-    body::before {
-        inset: 10px;
-        border-radius: 18px;
-    }
-
-    /* Header, metadata, and hero grids change from 12 columns to 6 columns. */
-    header,
-    main,
-    .hero {
-        grid-template-columns: repeat(6, 1fr);
-    }
-
-    /* Main header/hero cells become full-width on mobile. */
-    header .left,
-    header .center,
-    .project-meta,
-    .project-subtitle,
-    .title,
-    .subtitle,
-    .author {
-        grid-column: 1 / -1;
-    }
-
-    /* Reduces the main title size for small screens. */
-    .title {
-        min-height: calc(var(--unit) * 6);
-        font-size: 52px;
-        line-height: 0.98;
-    }
-
-    /* Keeps subtitle and author blocks compact on mobile. */
-    .subtitle,
-    .author {
-        min-height: calc(var(--unit) * 2);
-    }
-
-    /* Reduces the cover image height on mobile. */
-    .cover-image {
-        height: calc(var(--unit) * 6);
-    }
-
-    /* Description sections switch to a 6-column system. */
-    .description-title,
-    .description-subtitle,
-    .description,
-    .description-list {
-        width: 100%;
-        grid-template-columns: repeat(6, 1fr);
-    }
-
-    /* All description blocks leave one decorative column on the left. */
-    .description-title,
-    .description-subtitle,
-    .description,
-    .description-list,
-    .research-question {
-        padding-left: calc((100% / 6) + 12px);
-    }
-
-    /* Decorative bands become one column wide in the 6-column mobile grid. */
-    .description-title::before,
-    .description-subtitle::before,
-    .description::before,
-    .description-list::before {
-        width: calc(100% / 6);
-    }
-
-    /* Smaller research question text for mobile. */
-    .research-question {
-        font-size: 15px;
-    }

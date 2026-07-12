@@ -1,0 +1,121 @@
+flowchart LR
+  %% EVIDENCE KEY
+  %% [D:S-ID] documented in official source
+  %% [I:S-ID] inferred workflow connection; source documents endpoints/result
+  %% [V:R-ID] requires verification
+  %% Solid = documented; long dash = inferred; short dot = requires verification.
+
+  subgraph R["RESEARCH PROCESSES"]
+    direction TB
+    R01["INPUT<br/>Technological present + systems of power<br/>[D:S-CE-A]"]
+    R02["OPERATION<br/>asks how technology + power co-evolved<br/>[D:S-CE-A]"]
+    R03["OPERATION<br/>tracks five centuries from the 1500s<br/>[D:S-CE-A]"]
+    R04["OPERATION<br/>traces colonialism · militarization<br/>automation · enclosure<br/>[D:S-CE-A]"]
+    R05["INPUT / OPERATION<br/>archival + bibliographic + image corpus<br/>collects · verifies · attributes<br/>[V:R-SOURCES]"]
+    R06["OUTPUT<br/>candidate historical units<br/>[V:R-SOURCES]"]
+    R07["OUTPUT<br/>hundreds / thousands of texts + drawings<br/>[D:S-CE-A+FP]"]
+
+    R01 -->|"initiates [D:S-CE-A]"| R02
+    R02 -->|"establishes [D:S-CE-A]"| R03
+    R03 -->|"tracks [D:S-CE-A]"| R04
+    R05 -.->|"would supply [V:R-SOURCES]"| R06
+    R06 -.->|"would contribute to [V:R-PRODUCTION]"| R07
+  end
+
+  subgraph O["ORGANIZATIONAL PROCESSES"]
+    direction TB
+    O01["INPUT<br/>candidate research units<br/>[V:R-SELECTION]"]
+    O02["OPERATION<br/>selects material for inclusion<br/>[V:R-SELECTION]"]
+    O03["OPERATION<br/>classifies into four themes<br/>[D:S-CE-A]"]
+    O04["OUTPUT<br/>communication · computation<br/>classification · control<br/>[D:S-CE-A]"]
+    O05["OPERATION<br/>groups into topic taxonomy<br/>[D-result / I-operation:S-CE-A+CE-M]"]
+    O06["OPERATION<br/>organizes vertically by time<br/>[D-result / I-operation:S-CE-A]"]
+    O07["OPERATION<br/>organizes horizontally by systems<br/>[D-result / I-operation:S-CE-A]"]
+    O08["OPERATION<br/>cross-references across themes + periods<br/>[I:S-CE-A]"]
+    O09["OUTPUT<br/>partial genealogical constellation<br/>[D:S-CE-A]"]
+
+    O01 -.->|"undergoes [V:R-SELECTION]"| O02
+    O02 -.->|"feeds [I:S-CE-A]"| O03
+    O03 -->|"produces [D:S-CE-A]"| O04
+    O04 -->|"organizes [D-result:S-CE-A+CE-M]"| O05
+    O05 -->|"positions by time [D-result:S-CE-A]"| O06
+    O05 -->|"positions by systems [D-result:S-CE-A]"| O07
+    O06 -.->|"supports [I:S-CE-A]"| O08
+    O07 -.->|"supports [I:S-CE-A]"| O08
+    O08 -.->|"constructs [I:S-CE-A]"| O09
+  end
+
+  subgraph V["VISUAL PROCESSES"]
+    direction TB
+    V01["INPUT<br/>genealogical constellation<br/>[D:S-CE-A]"]
+    V02["OPERATION<br/>uses diagrammatic language<br/>[D:S-CE-A]"]
+    V03["OPERATION<br/>encodes time vertically<br/>+ systems horizontally<br/>[D:S-CE-A]"]
+    V04["OPERATION<br/>combines dense texts + drawings<br/>[D-output / I-operation:S-CE-A+FP]"]
+    V05["OUTPUT<br/>two-map thematic diptych<br/>[D:S-CE-I+FP]"]
+    V06["OUTPUT<br/>interactive map · installation · books<br/>[D:S-CE-I+CE-M]"]
+
+    V01 -->|"is visualized through [D:S-CE-A]"| V02
+    V02 -->|"encodes [D:S-CE-A]"| V03
+    V03 -.->|"composes [I:S-CE-A+FP]"| V04
+    V04 -->|"divides into [D:S-CE-I+FP]"| V05
+    V05 -->|"translates across [D:S-CE-I+CE-M]"| V06
+  end
+
+  subgraph I["INTERACTION PROCESSES"]
+    direction TB
+    I01["INPUT<br/>large dense visual field + topic taxonomy<br/>[D:S-CE-A+CE-M]"]
+    I02["OPERATION<br/>navigates by theme · period · idea<br/>[D:S-CE-A]"]
+    I03["OPERATION<br/>selects topics<br/>[D:S-CE-M]"]
+    I04["OPERATION<br/>pans + zooms overview to detail<br/>[D:S-CE-M]"]
+    I05["OPERATION<br/>orients through audio guidance<br/>[D:S-CE-T]"]
+    I06["OPERATION<br/>invites slow reading + connections<br/>[D:S-CE-A]"]
+    I07["OPERATION<br/>supports notes + collects feedback<br/>[D:S-CE-I]"]
+    I08["OUTPUT<br/>plural public interpretation<br/>[D:S-CE-A]"]
+
+    I01 -->|"supports [D:S-CE-A]"| I02
+    I01 -->|"supports [D:S-CE-M]"| I03
+    I01 -->|"supports [D:S-CE-M]"| I04
+    I05 -->|"mediates [D:S-CE-T]"| I02
+    I02 -->|"enables [D:S-CE-A]"| I06
+    I03 -->|"focuses [D:S-CE-M]"| I06
+    I04 -->|"reveals detail for [D:S-CE-M]"| I06
+    I06 -->|"opens into [D:S-CE-A]"| I08
+    I07 -->|"adds feedback to [D:S-CE-I]"| I08
+  end
+
+  F01(["Interactive Genealogy<br/>[I-synthesis:S-CE-A+CE-I+CE-M+CE-T]"])
+
+  R04 -.->|"yields research units through unpublished steps [I:S-CE-A+FP]"| R07
+  R07 -.->|"supplies [I:S-CE-A+FP]"| O01
+  O09 -->|"becomes visual input [D:S-CE-A]"| V01
+  V06 -->|"provides field for [D:S-CE-M]"| I01
+  I08 -.->|"completes public knowledge form [I:S-CE-A]"| F01
+  V06 -.->|"contributes visual form [I:S-CE-M]"| F01
+  O09 -.->|"contributes genealogy [I:S-CE-A]"| F01
+
+  classDef research fill:#e8f2ff,stroke:#2563a6,stroke-width:1.5px,color:#102a43;
+  classDef organization fill:#fff4d6,stroke:#9a6700,stroke-width:1.5px,color:#4a3500;
+  classDef visual fill:#e9f8ef,stroke:#2f855a,stroke-width:1.5px,color:#153e2a;
+  classDef interaction fill:#f3e8ff,stroke:#7e22ce,stroke-width:1.5px,color:#3b0764;
+  classDef unverified fill:#f4f4f5,stroke:#6b7280,stroke-width:1.5px,color:#27272a;
+  classDef final fill:#ffe8ef,stroke:#be185d,stroke-width:3px,color:#500724;
+
+  class R01,R02,R03,R04,R07 research;
+  class R05,R06,O01,O02 unverified;
+  class O03,O04,O05,O06,O07,O08,O09 organization;
+  class V01,V02,V03,V04,V05,V06 visual;
+  class I01,I02,I03,I04,I05,I06,I07,I08 interaction;
+  class F01 final;
+
+  %% Verification edges are indices 3,4,5. Short-dot pattern distinguishes them.
+  linkStyle 3,4,5 stroke-dasharray:2 3;
+
+  %% SOURCE KEY — full descriptions and URLs are in 02_methodology.md
+  %% S-CE-A  https://calculatingempires.net/about.html
+  %% S-CE-I  https://calculatingempires.net/info.html
+  %% S-CE-M  https://calculatingempires.net/
+  %% S-CE-T  https://calculatingempires.net/?audio=how-to-read-the-map
+  %% S-FP    https://www.fondazioneprada.org/project/calculating-empires/
+  %% R-SOURCES official archive/bibliography/image corpus documentation required
+  %% R-PRODUCTION source-to-drawing/text production account required
+  %% R-SELECTION published inclusion/exclusion criteria required

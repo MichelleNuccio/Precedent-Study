@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "title": "Calculating Empires — Interactive Precedent Study",
+    "version": "0.1"
+  },
+  "nodes": [
+    {
+      "id": "overview",
+      "code": "01",
+      "label": "CALCULATING EMPIRES",
+      "group": "core",
+      "category": "CENTRAL PROJECT",
+      "x": 0.50,
+      "y": 0.48,
+      "width": 258,
+      "height": 104,
+      "summary": "The central project: a visual genealogy of technology and power since 1500.",
+      "content": {
+        "eyebrow": "01 / CENTRAL PROJECT",
+        "title": "Calculating Empires",
+        "subtitle": "A genealogy of technology and power since 1500",
+        "paragraphs": [
+          "Calculating Empires is a large-scale research visualization that places contemporary technical systems within longer histories of power.",
+          "This prototype treats the project as the central node through which documented research, structural analysis, and personal interpretation can be navigated."
+        ],
+        "keywords": ["genealogy", "technology", "power", "visualization"],
+        "sources": [{"label": "Official project description", "url": "https://calculatingempires.net/about.html"}]
+      }
+    },
+    {
+      "id": "genealogy",
+      "code": "02",
+      "label": "AUTHORS AND GENEALOGY",
+      "group": "documented",
+      "category": "PRECEDENT RESEARCH",
+      "x": 0.19,
+      "y": 0.24,
+      "width": 214,
+      "height": 82,
+      "summary": "The separate trajectories of Kate Crawford and Vladan Joler before their convergence.",
+      "content": {
+        "eyebrow": "02 / AUTHORS AND GENEALOGY",
+        "title": "Prior trajectories",
+        "subtitle": "Research, institutions, visual practice, and collaboration",
+        "paragraphs": ["This section maps the distinct backgrounds and earlier projects that precede Calculating Empires.", "Documented facts are separated from inferred continuities and unresolved research gaps."],
+        "keywords": ["Crawford", "Joler", "Anatomy of an AI System", "precedents"],
+        "sources": [{"label": "Genealogy research file", "url": "../01_genealogy.md"}]
+      }
+    },
+    {
+      "id": "methodology",
+      "code": "03",
+      "label": "METHODOLOGY",
+      "group": "documented",
+      "category": "PROJECT ANALYSIS",
+      "x": 0.77,
+      "y": 0.23,
+      "width": 190,
+      "height": 82,
+      "summary": "How historical material becomes an interactive genealogy.",
+      "content": {
+        "eyebrow": "03 / METHODOLOGY",
+        "title": "How the project is constructed",
+        "subtitle": "From historical inquiry to interactive genealogy",
+        "paragraphs": ["The workflow moves through research, organization, visual encoding, and interaction.", "Unpublished archival, bibliographic, image-selection, and cross-referencing procedures remain explicitly marked as research gaps."],
+        "keywords": ["research", "taxonomy", "visualization", "interaction"],
+        "sources": [{"label": "Official project description", "url": "https://calculatingempires.net/about.html"}, {"label": "Methodology research file", "url": "../02_methodology.md"}]
+      }
+    },
+    {
+      "id": "structure",
+      "code": "04",
+      "label": "PROJECT STRUCTURE",
+      "group": "documented",
+      "category": "FORMAL ANALYSIS",
+      "x": 0.50,
+      "y": 0.15,
+      "width": 202,
+      "height": 82,
+      "summary": "Four themes, temporal and systemic axes, and a two-map organization.",
+      "content": {
+        "eyebrow": "04 / PROJECT STRUCTURE",
+        "title": "The organizing system",
+        "subtitle": "Communication, computation, classification, and control",
+        "paragraphs": ["This section will describe the documented taxonomy, temporal axis, systems axis, diptych, and navigation model.", "Detailed structural analysis will be expanded in the next research stage."],
+        "keywords": ["taxonomy", "time", "systems", "diptych"],
+        "sources": [{"label": "Official project description", "url": "https://calculatingempires.net/about.html"}]
+      }
+    },
+    {
+      "id": "rhetoric",
+      "code": "05",
+      "label": "RHETORICAL ANALYSIS",
+      "group": "inferred",
+      "category": "ARGUMENT",
+      "x": 0.79,
+      "y": 0.51,
+      "width": 208,
+      "height": 82,
+      "summary": "How scale, density, juxtaposition, and navigation produce an argument.",
+      "content": {
+        "eyebrow": "05 / RHETORICAL ANALYSIS",
+        "title": "Argument through form",
+        "subtitle": "How the visualization persuades",
+        "paragraphs": ["This analytical layer will examine how visual density, historical juxtaposition, diagrammatic authority, and flexible reading shape the project's claims.", "Its relations are interpretive unless directly supported by project statements."],
+        "keywords": ["rhetoric", "density", "scale", "juxtaposition"],
+        "sources": []
+      }
+    },
+    {
+      "id": "practice",
+      "code": "06",
+      "label": "WIDER PRACTICE",
+      "group": "documented",
+      "category": "CONTEXT",
+      "x": 0.73,
+      "y": 0.77,
+      "width": 188,
+      "height": 82,
+      "summary": "The project within wider research, exhibition, and critical-visualization practices.",
+      "content": {
+        "eyebrow": "06 / WIDER PRACTICE",
+        "title": "A wider field",
+        "subtitle": "Research visualization, installation, and critical cartography",
+        "paragraphs": ["This section will place the work in relation to critical visualization, exhibition practice, and public research formats.", "Only documented institutional and exhibition relationships will be treated as factual."],
+        "keywords": ["installation", "critical cartography", "exhibition", "research visualization"],
+        "sources": [{"label": "Official credits and exhibitions", "url": "https://calculatingempires.net/info.html"}]
+      }
+    },
+    {
+      "id": "assessment",
+      "code": "07",
+      "label": "PERSONAL ASSESSMENT",
+      "group": "interpretive",
+      "category": "PERSONAL READING",
+      "x": 0.22,
+      "y": 0.72,
+      "width": 210,
+      "height": 82,
+      "summary": "The author's explicit personal evaluation of the precedent.",
+      "content": {
+        "eyebrow": "07 / PERSONAL ASSESSMENT",
+        "title": "Critical evaluation",
+        "subtitle": "A clearly separated personal position",
+        "paragraphs": ["This section is reserved for the student's own critical assessment.", "It remains visually and evidentially distinct from documented project information."],
+        "keywords": ["evaluation", "position", "limitations", "potential"],
+        "sources": []
+      }
+    },
+    {
+      "id": "grid",
+      "code": "08",
+      "label": "GRID AS APPARATUS",
+      "group": "interpretive",
+      "category": "CRITICAL LENS",
+      "x": 0.48,
+      "y": 0.82,
+      "width": 208,
+      "height": 82,
+      "summary": "A personal theoretical lens for reading the grid as an apparatus of ordering.",
+      "content": {
+        "eyebrow": "08 / GRID AS APPARATUS",
+        "title": "The grid is not neutral",
+        "subtitle": "A personal interpretive proposition",
+        "paragraphs": ["This section will test the grid as an apparatus that orders knowledge, visibility, comparison, and power.", "The proposition belongs to the author's critical interpretation, not to the documented intentions of Crawford and Joler."],
+        "keywords": ["grid", "apparatus", "ordering", "power"],
+        "sources": []
+      }
+    },
+    {
+      "id": "sources",
+      "code": "09",
+      "label": "SOURCES",
+      "group": "source",
+      "category": "EVIDENCE",
+      "x": 0.08,
+      "y": 0.47,
+      "width": 152,
+      "height": 74,
+      "summary": "Official descriptions, biographies, credits, publications, and research gaps.",
+      "content": {
+        "eyebrow": "09 / SOURCES",
+        "title": "Evidence base",
+        "subtitle": "Documentation, citations, and verification status",
+        "paragraphs": ["The source layer supports factual nodes and records where evidence is incomplete.", "It prevents inferred relationships from appearing as documented facts."],
+        "keywords": ["evidence", "bibliography", "documentation", "verification"],
+        "sources": [{"label": "Calculating Empires", "url": "https://calculatingempires.net/"}]
+      }
+    },
+    {
+      "id": "poster",
+      "code": "10",
+      "label": "POSTER",
+      "group": "output",
+      "category": "DESIGN OUTPUT",
+      "x": 0.11,
+      "y": 0.86,
+      "width": 150,
+      "height": 74,
+      "summary": "A later visual output translating the critical reading into a poster.",
+      "content": {
+        "eyebrow": "10 / POSTER",
+        "title": "Visual synthesis",
+        "subtitle": "A design output developed from the precedent study",
+        "paragraphs": ["The poster will visualize the personal interpretation rather than reproduce the original project.", "Its content and form remain placeholders at this prototype stage."],
+        "keywords": ["poster", "translation", "design", "output"],
+        "sources": []
+      }
+    }
+  ],
+  "edges": [
+    {"source": "genealogy", "target": "overview", "label": "converges into", "type": "documented"},
+    {"source": "methodology", "target": "overview", "label": "constructs", "type": "documented"},
+    {"source": "structure", "target": "overview", "label": "organizes", "type": "documented"},
+    {"source": "overview", "target": "rhetoric", "label": "produces an argument through", "type": "inferred"},
+    {"source": "overview", "target": "practice", "label": "belongs to", "type": "documented"},
+    {"source": "assessment", "target": "overview", "label": "evaluates", "type": "interpretive"},
+    {"source": "overview", "target": "grid", "label": "is interpreted through", "type": "interpretive"},
+    {"source": "sources", "target": "genealogy", "label": "supports", "type": "documented"},
+    {"source": "sources", "target": "methodology", "label": "supports", "type": "documented"},
+    {"source": "poster", "target": "grid", "label": "visualizes", "type": "interpretive"},
+    {"source": "grid", "target": "structure", "label": "critiques", "type": "interpretive"}
+  ]
+}
