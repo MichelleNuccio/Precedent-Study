@@ -4,9 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Calculating Empires | Precedent Study</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body class="intro-closed">
+    <div class="intro-gate" aria-live="polite">
+      <button
+        id="intro-square"
+        class="intro-square"
+        type="button"
+        aria-label="Open the Calculating Empires relational diagram"
+      >
+        <span class="intro-square-mark" aria-hidden="true"></span>
+        <span class="intro-label" aria-hidden="true">
+          <span>CALCULATING EMPIRES</span>
+          <small>click to unfold</small>
+        </span>
+      </button>
+    </div>
+
     <main class="app-shell">
       <aside class="study-panel" aria-label="Informazioni sul precedent study">
         <div class="kicker">Precedent study</div>
@@ -63,6 +78,16 @@
         </div>
       </section>
     </main>
+
+    <aside
+      id="curatorial-statement"
+      class="curatorial-statement"
+      aria-label="Curatorial statement"
+      hidden
+    >
+      <p>This is not a map. It is an apparatus for reading power.</p>
+      <button id="dismiss-statement" type="button" aria-label="Dismiss curatorial statement">x</button>
+    </aside>
 
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="./d3.js"></script>

@@ -26,6 +26,209 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
+body.intro-closed {
+  background: #000000;
+  overflow: hidden;
+}
+
+body.intro-unfolding,
+body.intro-open {
+  overflow: auto;
+}
+
+body.intro-closed .app-shell {
+  grid-template-columns: 1fr;
+  opacity: 1;
+  pointer-events: none;
+  visibility: visible;
+}
+
+body.intro-closed .study-panel,
+body.intro-closed .topbar,
+body.intro-closed .timeline,
+body.intro-unfolding .study-panel,
+body.intro-unfolding .topbar,
+body.intro-unfolding .timeline {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+body.intro-closed .map-stage,
+body.intro-unfolding .map-stage {
+  grid-column: 1;
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 100vh;
+  padding: 0;
+}
+
+body.intro-closed .graph-wrap,
+body.intro-closed #empire-map,
+body.intro-unfolding .graph-wrap,
+body.intro-unfolding #empire-map {
+  min-height: 100vh;
+}
+
+body.intro-unfolding .app-shell,
+body.intro-open .app-shell {
+  opacity: 1;
+  transition: opacity 320ms ease;
+  visibility: visible;
+}
+
+body.intro-unfolding .app-shell {
+  grid-template-columns: 1fr;
+}
+
+body.intro-unfolding .map-stage {
+  grid-column: 1;
+}
+
+.intro-gate {
+  align-items: center;
+  display: grid;
+  inset: 0;
+  justify-items: center;
+  pointer-events: none;
+  position: fixed;
+  z-index: 20;
+}
+
+body.intro-open .intro-gate,
+body.intro-unfolding .intro-gate {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.intro-square {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #ffffff;
+  cursor: default;
+  display: grid;
+  justify-items: center;
+  min-height: 0;
+  padding: 0;
+  pointer-events: auto;
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.intro-square-mark {
+  background: #000000;
+  border: 1px solid #ffffff;
+  display: block;
+  height: 22px;
+  transition:
+    border-width 160ms ease,
+    height 160ms ease,
+    width 160ms ease;
+  width: 22px;
+  opacity: 0;
+}
+
+.intro-square:hover,
+.intro-square:focus-visible {
+  cursor: pointer;
+}
+
+.intro-square:hover .intro-square-mark,
+.intro-square:focus-visible .intro-square-mark {
+  border-width: 1.5px;
+  height: 26px;
+  width: 26px;
+}
+
+body.intro-closed .node:not(.is-root-node),
+body.intro-closed .link,
+body.intro-closed .cross-link {
+  opacity: 0 !important;
+}
+
+body.intro-closed .node text {
+  opacity: 0;
+}
+
+body.intro-closed .node.is-root-node {
+  opacity: 1 !important;
+}
+
+body.intro-closed .node.is-root-node rect {
+  stroke-width: 1;
+}
+
+body.intro-hovered .node.is-root-node rect,
+body.intro-closed:has(.intro-square:focus-visible) .node.is-root-node rect {
+  stroke-width: 1.5;
+}
+
+.intro-square:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 12px;
+}
+
+.intro-label {
+  display: grid;
+  font-size: 0.72rem;
+  gap: 6px;
+  justify-items: center;
+  left: 50%;
+  line-height: 1.1;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: calc(100% + 18px);
+  transform: translateX(-50%);
+  transition: opacity 180ms ease;
+  white-space: nowrap;
+}
+
+.intro-label small {
+  color: var(--muted);
+  font-size: 0.62rem;
+  text-transform: lowercase;
+}
+
+.intro-square:hover .intro-label,
+.intro-square:focus-visible .intro-label {
+  opacity: 1;
+}
+
+.curatorial-statement {
+  align-items: start;
+  bottom: 22px;
+  color: #ffffff;
+  display: flex;
+  gap: 10px;
+  left: 24px;
+  max-width: min(330px, calc(100vw - 48px));
+  opacity: 0.72;
+  position: fixed;
+  z-index: 12;
+}
+
+.curatorial-statement[hidden] {
+  display: none;
+}
+
+.curatorial-statement p {
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.curatorial-statement button {
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  min-height: 22px;
+  padding: 0 6px;
+}
+
 button {
   border: 1px solid var(--line);
   border-radius: 0;

@@ -21,6 +21,51 @@ const themes = [
 const periods = ["All", "Origins", "Core", "Analysis", "Reading"];
 
 // ------------------------------------------------------------
+// INTRO STATE MACHINE
+// ------------------------------------------------------------
+// The site starts closed: only the HTML square is visible.
+// After activation, D3 reveals the central node and the first-level clusters.
+const APP_STATES = {
+  CLOSED: "closed",
+  HOVERED: "hovered",
+  UNFOLDING: "unfolding",
+  OPEN: "open",
+};
+
+const INTRO_CONFIG = {
+  replayOnReload: true,
+};
+
+const INTRO_ROOT_RADIUS = {
+  closed: 11,
+  hovered: 13,
+};
+
+const INTRO_TIMING = {
+  edgeDuration: 500,
+  nodeDuration: 350,
+  stagger: 150,
+  controlsDelay: 250,
+};
+
+// These are the nodes revealed during the opening sequence.
+// The current data uses "shared-practice" as the genealogy/origin cluster.
+const INTRO_CLUSTER_IDS = [
+  "shared-practice",
+  "wider-practice",
+  "methodology",
+  "structure",
+  "rhetorical-analysis",
+  "critical-reading",
+];
+
+let appState = APP_STATES.CLOSED;
+let introLocked = false;
+let visibleNodeIds = new Set(["root"]);
+let expandedNodeIds = new Set();
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ------------------------------------------------------------
 // MAP CONTENT
 // ------------------------------------------------------------
 // This is the main place to edit the diagram.
@@ -135,8 +180,8 @@ const colorByTheme = Object.fromEntries(themes.map((theme) => [theme.id, theme.c
 // Current UI state. These values change when the user clicks filters,
 // nodes, reset, or the cross-links button.
 let activeTheme = "all";
-let activePeriod = "Tutto";
-let selectedId = "root";
+let activePeriod = "All";
+let selectedId = null;
 let showCrossLinks = false;
 
 // Main DOM references used by D3.
@@ -152,6 +197,22 @@ const links = nodes.filter((node) => node.parent).map((node) => ({ source: node.
 const nodeById = new Map(nodes.map((node) => [node.id, node]));
 const simulationLinks = links.map((link) => ({ ...link }));
 const simulationNodes = nodes.map((node) => ({ ...node }));
+
+// Derive depth from each node's parent chain.
+// depth 0 = central node, depth 1 = first-level cluster, depth 2+ = child nodes.
+nodes.forEach((node) => {
+  let depth = 0;
+  let current = node;
+  while (current.parent && nodeById.has(current.parent)) {
+    depth += 1;
+    current = nodeById.get(current.parent);
+  }
+  node.depth = depth;
+});
+
+simulationNodes.forEach((node) => {
+  node.depth = nodeById.get(node.id)?.depth || 0;
+});
 
 // Builds the sidebar layer filter buttons.
 const themeButtons = d3
@@ -189,11 +250,13 @@ d3.select("#toggle-links").on("click", () => {
 
 // Restores the default view and filter state.
 d3.select("#reset-view").on("click", () => {
-  selectedId = "root";
+  selectedId = null;
   activeTheme = "all";
-  activePeriod = "Tutto";
+  activePeriod = "All";
+  visibleNodeIds = new Set(["root", ...INTRO_CLUSTER_IDS]);
+  expandedNodeIds.clear();
   simulation.alpha(0.65).restart();
-  updateDetails(nodeById.get("root"));
+  clearDetails();
   updateFilters();
 });
 
@@ -227,7 +290,12 @@ const nodeSelection = nodeLayer
   .selectAll("g")
   .data(simulationNodes)
   .join("g")
-  .attr("class", (node) => (node.radius <= 10 ? "node is-minor-node" : "node"))
+  .attr("class", (node) => {
+    const classes = ["node"];
+    if (node.radius <= 10) classes.push("is-minor-node");
+    if (node.id === "root") classes.push("is-root-node");
+    return classes.join(" ");
+  })
   .call(
     d3
       .drag()
@@ -236,7 +304,9 @@ const nodeSelection = nodeLayer
       .on("end", dragended),
   )
   .on("click", (_, node) => {
+    if (appState !== APP_STATES.OPEN) return;
     selectedId = node.id;
+    revealDirectChildren(node.id);
     updateDetails(node);
     updateFilters();
   });
@@ -245,16 +315,16 @@ const nodeSelection = nodeLayer
 // Square size comes from radius: width = radius * 2 and height = radius * 2.
 nodeSelection
   .append("rect")
-  .attr("width", (node) => node.radius * 2)
-  .attr("height", (node) => node.radius * 2)
-  .attr("x", (node) => -node.radius)
-  .attr("y", (node) => -node.radius)
+  .attr("width", (node) => getDisplayRadius(node) * 2)
+  .attr("height", (node) => getDisplayRadius(node) * 2)
+  .attr("x", (node) => -getDisplayRadius(node))
+  .attr("y", (node) => -getDisplayRadius(node))
   .attr("fill", "#050505");
 
 // Draws the visible label next to each square.
 nodeSelection
   .append("text")
-  .attr("x", (node) => node.radius + 7)
+  .attr("x", (node) => getDisplayRadius(node) + 7)
   .attr("y", 5)
   .text((node) => node.label);
 
@@ -275,14 +345,52 @@ const simulation = d3
 // Recalculates the SVG size when the browser window changes.
 function resize() {
   const bounds = graphWrap.getBoundingClientRect();
-  graphWidth = Math.max(bounds.width, 320);
-  graphHeight = Math.max(bounds.height, 520);
+  const introMode = appState === APP_STATES.CLOSED || appState === APP_STATES.HOVERED || appState === APP_STATES.UNFOLDING;
+  graphWidth = introMode ? window.innerWidth : Math.max(bounds.width, 320);
+  graphHeight = introMode ? window.innerHeight : Math.max(bounds.height, 520);
   svg.attr("viewBox", [0, 0, graphWidth, graphHeight]);
+  pinIntroRoot();
   simulation
     .force("center", d3.forceCenter(graphWidth / 2, graphHeight / 2))
     .force("x", d3.forceX(graphWidth / 2).strength(0.035))
     .force("y", d3.forceY(graphHeight / 2).strength(0.035));
   simulation.alpha(0.4).restart();
+}
+
+function getDisplayRadius(node) {
+  if (node.id !== "root") return node.radius;
+  if (appState === APP_STATES.CLOSED) return INTRO_ROOT_RADIUS.closed;
+  if (appState === APP_STATES.HOVERED) return INTRO_ROOT_RADIUS.hovered;
+  return node.radius;
+}
+
+function updateNodeGeometry() {
+  nodeSelection
+    .select("rect")
+    .attr("width", (node) => getDisplayRadius(node) * 2)
+    .attr("height", (node) => getDisplayRadius(node) * 2)
+    .attr("x", (node) => -getDisplayRadius(node))
+    .attr("y", (node) => -getDisplayRadius(node));
+
+  nodeSelection
+    .select("text")
+    .attr("x", (node) => getDisplayRadius(node) + 7);
+}
+
+function pinIntroRoot() {
+  const root = simulationNodes.find((node) => node.id === "root");
+  if (!root) return;
+
+  if (appState === APP_STATES.CLOSED || appState === APP_STATES.HOVERED || appState === APP_STATES.UNFOLDING) {
+    root.x = graphWidth / 2;
+    root.y = graphHeight / 2;
+    root.fx = graphWidth / 2;
+    root.fy = graphHeight / 2;
+    return;
+  }
+
+  root.fx = null;
+  root.fy = null;
 }
 
 // Runs many times per second while the force simulation settles.
@@ -311,7 +419,7 @@ function ticked() {
 
   nodeSelection
     .select("text")
-    .attr("x", (node) => (node.x > graphWidth * 0.72 ? -(node.radius + 9) : node.radius + 9))
+    .attr("x", (node) => (node.x > graphWidth * 0.72 ? -(getDisplayRadius(node) + 9) : getDisplayRadius(node) + 9))
     .attr("text-anchor", (node) => (node.x > graphWidth * 0.72 ? "end" : "start"));
 }
 
@@ -324,11 +432,45 @@ function updateDetails(node) {
   `);
 }
 
+// Clears the information panel so no node is preselected after the intro.
+function clearDetails() {
+  details.html(`
+    <span class="node-type">No selection</span>
+    <h3>Select a node</h3>
+    <p>Click a square to read its note and reveal direct child nodes.</p>
+  `);
+}
+
 // Returns true when a node should remain visually active under the current filters.
 function nodeMatches(node) {
   const themeMatch = activeTheme === "all" || node.theme === activeTheme || node.id === "root";
-  const periodMatch = activePeriod === "Tutto" || node.period === activePeriod || node.id === "root";
+  const periodMatch = activePeriod === "All" || node.period === activePeriod || node.id === "root";
   return themeMatch && periodMatch;
+}
+
+// Returns true when the node belongs to the currently revealed part of the diagram.
+function nodeIsRevealed(node) {
+  return visibleNodeIds.has(node.id);
+}
+
+function getLinkSourceId(link) {
+  return typeof link.source === "object" ? link.source.id : link.source;
+}
+
+function getLinkTargetId(link) {
+  return typeof link.target === "object" ? link.target.id : link.target;
+}
+
+function linkIsRevealed(link) {
+  return visibleNodeIds.has(getLinkSourceId(link)) && visibleNodeIds.has(getLinkTargetId(link));
+}
+
+function revealDirectChildren(nodeId) {
+  if (expandedNodeIds.has(nodeId)) return;
+  expandedNodeIds.add(nodeId);
+  nodes
+    .filter((node) => node.parent === nodeId)
+    .forEach((node) => visibleNodeIds.add(node.id));
 }
 
 // Applies filter and selected-node styling.
@@ -338,13 +480,22 @@ function updateFilters() {
 
   nodeSelection
     .classed("is-selected", (node) => node.id === selectedId)
-    .classed("is-dimmed", (node) => !nodeMatches(node));
+    .classed("is-dimmed", (node) => nodeIsRevealed(node) && !nodeMatches(node))
+    .style("opacity", (node) => (nodeIsRevealed(node) && nodeMatches(node) ? 1 : 0))
+    .style("pointer-events", (node) => (appState === APP_STATES.OPEN && nodeIsRevealed(node) && nodeMatches(node) ? "auto" : "none"));
 
-  linkSelection.classed("is-dimmed", (link) => !nodeMatches(link.source) || !nodeMatches(link.target));
+  linkSelection
+    .classed("is-dimmed", (link) => linkIsRevealed(link) && (!nodeMatches(link.source) || !nodeMatches(link.target)))
+    .style("opacity", (link) => (linkIsRevealed(link) && nodeMatches(link.source) && nodeMatches(link.target) ? 1 : 0));
 
-  crossSelection.classed("is-dimmed", ([sourceId, targetId]) => {
-    return !nodeMatches(nodeById.get(sourceId)) || !nodeMatches(nodeById.get(targetId));
-  });
+  crossSelection
+    .classed("is-dimmed", ([sourceId, targetId]) => {
+      return !nodeMatches(nodeById.get(sourceId)) || !nodeMatches(nodeById.get(targetId));
+    })
+    .style("opacity", ([sourceId, targetId]) => {
+      const visible = showCrossLinks && visibleNodeIds.has(sourceId) && visibleNodeIds.has(targetId);
+      return visible && nodeMatches(nodeById.get(sourceId)) && nodeMatches(nodeById.get(targetId)) ? 1 : 0;
+    });
 }
 
 // Drag behavior: while dragging, pin the node to the pointer.
@@ -367,8 +518,141 @@ function dragended(event, node) {
   node.fy = null;
 }
 
+function setBodyState(state) {
+  document.body.classList.toggle("intro-closed", state === APP_STATES.CLOSED);
+  document.body.classList.toggle("intro-hovered", state === APP_STATES.HOVERED);
+  document.body.classList.toggle("intro-unfolding", state === APP_STATES.UNFOLDING);
+  document.body.classList.toggle("intro-open", state === APP_STATES.OPEN);
+  updateNodeGeometry();
+  pinIntroRoot();
+}
+
+function revealIntroNode(nodeId, delay) {
+  window.setTimeout(() => {
+    const node = simulationNodes.find((item) => item.id === nodeId);
+    const link = simulationLinks.find((item) => getLinkTargetId(item) === nodeId);
+    if (!node) return;
+
+    visibleNodeIds.add(nodeId);
+
+    const nodeToReveal = nodeSelection.filter((item) => item.id === nodeId);
+    nodeToReveal
+      .style("opacity", 0)
+      .style("pointer-events", "none")
+      .transition()
+      .duration(INTRO_TIMING.nodeDuration)
+      .ease(d3.easeCubicOut)
+      .style("opacity", 1);
+
+    if (link) {
+      const source = link.source;
+      const target = link.target;
+      linkSelection
+        .filter((item) => getLinkTargetId(item) === nodeId)
+        .style("opacity", 1)
+        .attr("x1", source.x)
+        .attr("y1", source.y)
+        .attr("x2", source.x)
+        .attr("y2", source.y)
+        .transition()
+        .duration(INTRO_TIMING.edgeDuration)
+        .ease(d3.easeCubicOut)
+        .attr("x2", target.x)
+        .attr("y2", target.y);
+    }
+  }, delay);
+}
+
+function showCuratorialStatement() {
+  const statement = document.querySelector("#curatorial-statement");
+  const dismiss = document.querySelector("#dismiss-statement");
+  if (!statement || sessionStorage.getItem("curatorialStatementDismissed") === "true") return;
+
+  statement.hidden = false;
+  dismiss?.addEventListener("click", () => {
+    sessionStorage.setItem("curatorialStatementDismissed", "true");
+    statement.hidden = true;
+  });
+}
+
+function finishIntro() {
+  appState = APP_STATES.OPEN;
+  introLocked = false;
+  setBodyState(appState);
+  visibleNodeIds = new Set(["root", ...INTRO_CLUSTER_IDS]);
+  clearDetails();
+  updateFilters();
+  showCuratorialStatement();
+  resize();
+  simulation.alpha(0.35).restart();
+}
+
+function openImmediately() {
+  visibleNodeIds = new Set(["root", ...INTRO_CLUSTER_IDS]);
+  finishIntro();
+}
+
+function startIntro() {
+  if (introLocked || (appState !== APP_STATES.CLOSED && appState !== APP_STATES.HOVERED)) return;
+
+  introLocked = true;
+  appState = APP_STATES.UNFOLDING;
+  setBodyState(appState);
+  clearDetails();
+
+  simulation.stop();
+  visibleNodeIds = new Set(["root"]);
+  pinIntroRoot();
+  updateFilters();
+
+  nodeSelection.filter((node) => node.id === "root").style("opacity", 1);
+
+  if (prefersReducedMotion) {
+    openImmediately();
+    return;
+  }
+
+  INTRO_CLUSTER_IDS.forEach((nodeId, index) => {
+    revealIntroNode(nodeId, index * INTRO_TIMING.stagger);
+  });
+
+  const totalDuration =
+    (INTRO_CLUSTER_IDS.length - 1) * INTRO_TIMING.stagger +
+    Math.max(INTRO_TIMING.edgeDuration, INTRO_TIMING.nodeDuration) +
+    INTRO_TIMING.controlsDelay;
+
+  window.setTimeout(finishIntro, totalDuration);
+}
+
+function setupIntroGate() {
+  const introSquare = document.querySelector("#intro-square");
+  if (!introSquare) return;
+
+  introSquare.addEventListener("mouseenter", () => {
+    if (appState === APP_STATES.CLOSED) {
+      appState = APP_STATES.HOVERED;
+      setBodyState(appState);
+    }
+  });
+
+  introSquare.addEventListener("mouseleave", () => {
+    if (appState === APP_STATES.HOVERED) {
+      appState = APP_STATES.CLOSED;
+      setBodyState(appState);
+    }
+  });
+
+  introSquare.addEventListener("click", startIntro);
+  introSquare.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    startIntro();
+  });
+}
+
 // Initial setup.
 window.addEventListener("resize", resize);
 resize();
-updateDetails(nodeById.get("root"));
+setupIntroGate();
+clearDetails();
 updateFilters();
