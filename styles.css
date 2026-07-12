@@ -1,0 +1,281 @@
+:root {
+  color-scheme: dark;
+  --ink: #ffffff;
+  --muted: #a9a9a9;
+  --paper: #000000;
+  --panel: #050505;
+  --line: rgba(255, 255, 255, 0.34);
+  --accent: #ffffff;
+  --accent-2: #ffffff;
+  --shadow: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.075) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    var(--paper);
+  background-size: 44px 44px;
+  color: var(--ink);
+  font-family: "Courier New", Courier, monospace;
+}
+
+button {
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: #000000;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+button:hover,
+button.is-active {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(290px, 360px) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.study-panel {
+  background: rgba(0, 0, 0, 0.94);
+  border-right: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 34px 28px;
+  z-index: 2;
+}
+
+.kicker,
+.eyebrow,
+.node-type {
+  color: var(--accent-2);
+  font-size: 0.74rem;
+  font-weight: 760;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.35rem, 4vw, 3rem);
+  line-height: 0.96;
+  max-width: 9ch;
+  overflow-wrap: anywhere;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 28ch;
+}
+
+.panel-section {
+  display: grid;
+  gap: 12px;
+}
+
+.panel-section h2 {
+  font-size: 0.86rem;
+  font-weight: 760;
+}
+
+.node-details {
+  border-left: 3px solid var(--accent);
+  display: grid;
+  gap: 10px;
+  min-height: 178px;
+  padding-left: 16px;
+}
+
+.node-details h3 {
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.node-details p,
+.reading-note {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.filter-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-grid button {
+  min-height: 34px;
+  padding: 0 10px;
+}
+
+.map-stage {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-height: 100vh;
+  padding: 28px;
+}
+
+.topbar {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.topbar h2 {
+  font-size: clamp(1.45rem, 3vw, 2.6rem);
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+}
+
+.timeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.timeline button {
+  background: #000000;
+  min-width: 78px;
+}
+
+.timeline button:hover,
+.timeline button.is-active {
+  background: #ffffff;
+  color: #000000;
+}
+
+.graph-wrap {
+  min-height: 760px;
+  position: relative;
+}
+
+#empire-map {
+  display: block;
+  height: 100%;
+  min-height: 760px;
+  width: 100%;
+}
+
+.link {
+  stroke: rgba(255, 255, 255, 0.48);
+  stroke-width: 1.2;
+}
+
+.link.is-minor-link {
+  stroke-dasharray: 2 6;
+  stroke-width: 1;
+}
+
+.cross-link {
+  fill: none;
+  opacity: 0;
+  pointer-events: none;
+  stroke: rgba(255, 255, 255, 0.42);
+  stroke-dasharray: 2 8;
+  stroke-width: 1.2;
+}
+
+.show-cross-links .cross-link {
+  opacity: 1;
+}
+
+.node rect {
+  cursor: grab;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.node.is-minor-node rect {
+  stroke-dasharray: 2 5;
+  stroke-width: 1.2;
+}
+
+.node text {
+  fill: var(--ink);
+  font-size: 12px;
+  font-weight: 400;
+  paint-order: stroke;
+  pointer-events: none;
+  stroke: #000000;
+  stroke-width: 5px;
+}
+
+.node.is-dimmed {
+  opacity: 0.22;
+}
+
+.link.is-dimmed,
+.cross-link.is-dimmed {
+  opacity: 0.06;
+}
+
+.node.is-selected rect {
+  fill: #ffffff;
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+.node.is-selected text {
+  fill: #ffffff;
+}
+
+@media (max-width: 860px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .study-panel {
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
+    box-shadow: none;
+  }
+
+  h1 {
+    max-width: none;
+  }
+
+  .map-stage {
+    min-height: 78vh;
+    padding: 20px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .graph-wrap,
+  #empire-map {
+    min-height: 760px;
+  }
+}
