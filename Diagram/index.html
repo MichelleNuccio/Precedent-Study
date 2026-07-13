@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculating Empires | Precedent Study</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="intro-closed">
+    <div class="intro-gate" aria-live="polite">
+      <button
+        id="intro-square"
+        class="intro-square"
+        type="button"
+        aria-label="Open the Calculating Empires relational diagram"
+      >
+        <span class="intro-square-mark" aria-hidden="true"></span>
+        <span class="intro-label" aria-hidden="true">
+          <span>CALCULATING EMPIRES</span>
+          <small>click to unfold</small>
+        </span>
+      </button>
+    </div>
+
+    <main class="app-shell">
+      <aside class="study-panel" aria-label="Informazioni sul precedent study">
+        <div class="kicker">Precedent study</div>
+        <h1>Calculating Empires</h1>
+        <p class="subtitle">A genealogy of power and technology since 1500</p>
+
+        <section class="panel-section">
+          <h2>Nodo selezionato</h2>
+          <div id="node-details" class="node-details">
+            <span class="node-type">Nodo centrale</span>
+            <h3>Calculating Empires</h3>
+            <p>
+              A Genealogy of Technology and Power Since 1500. Tutti i cluster
+              si collegano a questo nodo centrale.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2>Filtra per layer</h2>
+          <div class="filter-grid" id="theme-filters" aria-label="Filtri tematici"></div>
+        </section>
+
+        <section class="panel-section">
+          <h2>References / Sources</h2>
+          <p class="reading-note">
+            Official website, essay, interviews, bibliography e archive restano
+            fuori dal diagramma principale: funzionano come apparato esterno di fonti.
+          </p>
+        </section>
+      </aside>
+
+      <section class="map-stage" aria-label="Mappa interattiva">
+        <div class="topbar">
+          <div>
+            <p class="eyebrow">Interactive map</p>
+            <h2>Project genealogy map</h2>
+          </div>
+          <div class="toolbar" aria-label="Controlli mappa">
+            <button id="reset-view" type="button" title="Centra la mappa">Reset</button>
+            <button id="toggle-links" type="button" title="Mostra o nasconde le connessioni trasversali">
+              Cross-links
+            </button>
+          </div>
+        </div>
+        <div class="timeline" id="timeline" aria-label="Filtro temporale"></div>
+        <div class="graph-wrap">
+          <svg id="empire-map" role="img" aria-labelledby="graph-title graph-desc">
+            <title id="graph-title">Force-directed tree su Calculating Empires</title>
+            <desc id="graph-desc">
+              Una mappa interattiva che organizza il precedent study di Calculating Empires.
+            </desc>
+          </svg>
+        </div>
+      </section>
+    </main>
+
+    <aside
+      id="curatorial-statement"
+      class="curatorial-statement"
+      aria-label="Curatorial statement"
+      hidden
+    >
+      <p>This is not a map. It is an apparatus for reading power.</p>
+      <button id="dismiss-statement" type="button" aria-label="Dismiss curatorial statement">x</button>
+    </aside>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="./d3.js"></script>
+  </body>
+</html>
