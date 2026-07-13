@@ -3,117 +3,308 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A desktop-style interactive precedent study of Calculating Empires.">
-  <title>Calculating Empires — Desktop Archive</title>
+  <meta name="description" content="An inverted spatial archive trial for the Calculating Empires precedent study.">
+  <title>Calculating Empires — Inverted Archive Trial</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="spatial-archive">
   <header class="menu-bar" aria-label="Application menu">
-    <button class="system-mark" type="button" data-open="about-window" aria-label="About this archive">◆</button>
-    <button type="button" data-menu="file">File</button>
-    <button type="button" data-menu="edit">Edit</button>
-    <button type="button" data-menu="view">View</button>
-    <button type="button" data-menu="window">Window</button>
-    <button type="button" data-open="about-window">About</button>
+    <span class="manual-label">Manual</span>
+    <nav class="manual-tabs" aria-label="Interface manual">
+      <button class="manual-trigger" type="button" data-manual="interface" aria-controls="manual-interface" aria-expanded="false">Interface</button>
+      <button class="manual-trigger" type="button" data-manual="controls" aria-controls="manual-controls" aria-expanded="false">Controls</button>
+      <button class="manual-trigger" type="button" data-manual="display" aria-controls="manual-display" aria-expanded="false">Display</button>
+    </nav>
     <span class="menu-title">CALCULATING EMPIRES / PRECEDENT STUDY</span>
     <time id="menu-clock" aria-label="Current time"></time>
+
+    <section class="manual-panel" id="manual-interface" data-manual-panel="interface" hidden>
+      <p class="manual-panel-title">Interface</p>
+      <p>The interface supports multiple active records.</p>
+      <p>Each record operates independently and may remain open while additional records are accessed.</p>
+    </section>
+
+    <section class="manual-panel" id="manual-controls" data-manual-panel="controls" hidden>
+      <p class="manual-panel-title">Controls</p>
+      <dl class="manual-control-list">
+        <dt>Open</dt><dd>Double-click folder</dd>
+        <dt>Move</dt><dd>Drag window header</dd>
+        <dt>Scroll</dt><dd>Mouse wheel</dd>
+        <dt>Close</dt><dd>Left control □</dd>
+        <dt>Expand</dt><dd>Right control □</dd>
+      </dl>
+    </section>
+
+    <section class="manual-panel" id="manual-display" data-manual-panel="display" hidden>
+      <p class="manual-panel-title">Display</p>
+      <p>Records may overlap.</p>
+      <p>Window order reflects the current research session.</p>
+      <p>No predefined reading sequence is imposed.</p>
+    </section>
   </header>
 
   <main class="desktop" id="desktop" aria-label="Precedent study desktop">
-    <p class="desktop-hint">DOUBLE-CLICK A FOLDER · ENTER TO OPEN</p>
+    <canvas id="archive-field" aria-hidden="true"></canvas>
+    <p class="desktop-hint">SELECT NODE · DOUBLE-CLICK TO ACCESS</p>
 
     <section class="desktop-icons" aria-label="Study folders">
       <button class="desktop-icon" type="button" data-open="project-window">
         <span class="folder-icon" aria-hidden="true"></span>
-        <span>Project File</span>
+        <span>00_Metadata</span>
       </button>
       <button class="desktop-icon" type="button" data-open="overview-window">
         <span class="folder-icon" aria-hidden="true"></span>
-        <span>Overview</span>
-      </button>
-      <button class="desktop-icon" type="button" data-open="ontology-window">
-        <span class="folder-icon" aria-hidden="true"></span>
-        <span>Ontology</span>
+        <span>01_Genealogy</span>
       </button>
       <button class="desktop-icon" type="button" data-open="history-window">
         <span class="folder-icon" aria-hidden="true"></span>
-        <span>History</span>
+        <span>02_Context</span>
       </button>
       <button class="desktop-icon" type="button" data-open="visual-window">
         <span class="folder-icon" aria-hidden="true"></span>
-        <span>Visual System</span>
+        <span>03_Visual System</span>
       </button>
       <button class="desktop-icon" type="button" data-open="method-window">
         <span class="folder-icon" aria-hidden="true"></span>
-        <span>Methodology</span>
+        <span>04_Methodology</span>
+      </button>
+      <button class="desktop-icon" type="button" data-open="relational-window">
+        <span class="folder-icon" aria-hidden="true"></span>
+        <span>05_Relational Diagram</span>
+      </button>
+      <button class="desktop-icon" type="button" data-open="ontology-window">
+        <span class="folder-icon" aria-hidden="true"></span>
+        <span>06_Critical Reading</span>
       </button>
       <button class="desktop-icon" type="button" data-open="sources-window">
         <span class="folder-icon" aria-hidden="true"></span>
-        <span>Bibliography</span>
+        <span>07_Sources</span>
       </button>
     </section>
 
     <div class="desktop-stamp" aria-hidden="true">
-      <span>MODULE 1</span>
-      <strong>2026</strong>
-      <span>MICHELLE NUCCIO</span>
+      <span>ARCHIVE NODE</span>
+      <strong>CE/01</strong>
     </div>
 
     <article class="window is-open" id="project-window" data-window style="--x: 17vw; --y: 8vh; --w: 58vw; --h: 68vh;">
       <header class="title-bar" data-drag-handle>
         <button class="window-control close" type="button" data-action="close" aria-label="Close Project File"></button>
         <span class="title-stripes" aria-hidden="true"></span>
-        <h2>Project File</h2>
+        <h2>00_Metadata</h2>
         <span class="title-stripes" aria-hidden="true"></span>
         <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Project File"></button>
       </header>
-      <div class="window-content project-intro">
-        <p class="file-path">ARCHIVE / MODULE_1 / CALCULATING_EMPIRES</p>
+      <div class="window-content project-intro metadata-record">
+        <p class="file-path">ARCHIVE://CE/CORE/METADATA_00</p>
         <h1>CALCULATING<br>EMPIRES</h1>
-        <p class="project-subhead">A Genealogy of Power and Technology, 1500–2025</p>
-        <p class="project-credit">Kate Crawford and Vladan Joler (2023)</p>
-        <dl class="file-facts">
-          <div><dt>ABOUT</dt><dd>Interactive research visualization, large-scale printed map, exhibition, digital platform.</dd></div>
-          <div><dt>AUDIENCE</dt><dd>Researchers, designers, artists, architects, students, policymakers, and a general public interested in technology, AI, colonialism, and systems of power.</dd></div>
-          <div><dt>AUTHOR</dt><dd>Michelle Nuccio · Columbia GSAPP · Computational Design Practices.</dd></div>
+        <p class="project-subhead"><i>A Genealogy of Power and Technology from 1500 to the Present</i></p>
+
+        <dl class="record-fields primary-fields">
+          <div><dt>Authors</dt><dd>Kate Crawford · Vladan Joler</dd></div>
+          <div><dt>Year</dt><dd>2023</dd></div>
+          <div><dt>Format</dt><dd>Interactive website, large-scale printed map, exhibition, research project.</dd></div>
+          <div><dt>Research Fields</dt><dd>Critical AI Studies, Information Visualization, Computational Design, Media Archaeology, Digital Humanities.</dd></div>
         </dl>
+
+        <section class="metadata-section">
+          <h3>Abstract</h3>
+          <p><i>Calculating Empires</i> is a collaborative research project by Kate Crawford and Vladan Joler that investigates the historical genealogy of artificial intelligence and computational systems from 1500 to the present. Rather than presenting AI as an isolated technological breakthrough, the project situates it within a long history of infrastructures, extraction, labor, colonial expansion, communication networks, scientific knowledge, and political power. Through a large-scale printed map and an interactive digital interface, it assembles hundreds of historical actors, technologies, institutions, and events into a navigable visual archive. The project argues that contemporary AI is the result of centuries of interconnected technological, economic, and social developments rather than a recent innovation.</p>
+        </section>
+
+        <section class="metadata-section">
+          <h3>Keywords</h3>
+          <p class="keyword-field">Artificial Intelligence · Genealogy · Technology · Power · Infrastructure · Colonialism · Extraction · Data · Cartography · Visualization · History</p>
+        </section>
+
+        <section class="metadata-section">
+          <h3>Audience</h3>
+          <p>Researchers, designers, artists, architects, students, policymakers, and a broader public interested in artificial intelligence, technology, and the historical relationship between computation and systems of power.</p>
+        </section>
+
+        <section class="metadata-section">
+          <h3>Project Classification</h3>
+          <ul class="classification-list">
+            <li>Research Visualization</li>
+            <li>Interactive Archive</li>
+            <li>Critical Cartography</li>
+            <li>Digital Humanities Project</li>
+            <li>Computational Design Research</li>
+          </ul>
+        </section>
+
+        <section class="metadata-section">
+          <h3>Record Information</h3>
+          <dl class="record-fields record-information">
+            <div><dt>Archive Node</dt><dd>CE/01</dd></div>
+            <div><dt>Status</dt><dd>Published</dd></div>
+            <div><dt>Language</dt><dd>English</dd></div>
+            <div><dt>Temporal Scope</dt><dd>1500–Present</dd></div>
+            <div><dt>Geographical Scope</dt><dd>Global</dd></div>
+          </dl>
+        </section>
       </div>
       <button class="resize-corner" type="button" aria-label="Resize Project File"></button>
     </article>
 
     <article class="window" id="overview-window" data-window hidden style="--x: 7vw; --y: 13vh; --w: 51vw; --h: 61vh;">
       <header class="title-bar" data-drag-handle>
-        <button class="window-control close" type="button" data-action="close" aria-label="Close Overview"></button>
-        <span class="title-stripes" aria-hidden="true"></span><h2>Project Overview</h2><span class="title-stripes" aria-hidden="true"></span>
-        <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Overview"></button>
+        <button class="window-control close" type="button" data-action="close" aria-label="Close Genealogy"></button>
+        <span class="title-stripes" aria-hidden="true"></span><h2>01_Genealogy</h2><span class="title-stripes" aria-hidden="true"></span>
+        <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Genealogy"></button>
       </header>
-      <div class="window-content document-view">
-        <div class="document-toolbar"><span>OVERVIEW.TXT</span><span>4 KB</span></div>
-        <h3>Project Overview</h3>
-        <p>Calculating Empires is a visual genealogy that traces relationships between technology, computation, colonialism, governance, labor, communication, and power from 1500 to the present.</p>
-        <p>Through an interactive website and a large-scale printed diagram, the project proposes a historical framework for understanding contemporary artificial intelligence and computational infrastructures.</p>
-        <div class="map-preview" role="img" aria-label="Abstract preview of a dense historical systems map">
-          <span>COMMUNICATION</span><span>COMPUTATION</span><span>CLASSIFICATION</span><span>CONTROL</span>
-        </div>
+      <div class="window-content document-view genealogy-record">
+        <div class="document-toolbar"><span>01_GENEALOGY.TXT</span><span>RESEARCH RECORD</span></div>
+
+        <section class="genealogy-section">
+          <h3>Overview</h3>
+          <h4>Introduction</h4>
+          <p><i>Calculating Empires</i> is the result of the convergence of two distinct but complementary research trajectories. Kate Crawford's work examines the political, environmental, and social dimensions of artificial intelligence, while Vladan Joler investigates the infrastructures of digital technologies through large-scale visual mapping and forensic research. Their collaboration combines critical theory, historical inquiry, information design, and investigative visualization into a single research framework. Rather than presenting AI as an isolated technological achievement, <i>Calculating Empires</i> reconstructs the long historical processes that made contemporary computational systems possible.</p>
+        </section>
+
+        <section class="genealogy-section researcher-profile">
+          <h3>Kate Crawford</h3>
+          <h4>Academic Background</h4>
+          <p>Australian researcher, writer, and scholar working across media studies, science and technology studies (STS), artificial intelligence, and critical data studies. Crawford has held research positions at institutions including Microsoft Research, MIT, USC Annenberg, and the AI Now Institute, where she co-founded one of the leading research centers investigating the social implications of artificial intelligence.</p>
+
+          <h4>Research Themes</h4>
+          <ul class="tag-list">
+            <li>Artificial Intelligence</li><li>Power and Governance</li><li>Data Politics</li><li>Labor and Automation</li><li>Environmental Impact of Computing</li><li>Extraction</li><li>Critical AI Studies</li>
+          </ul>
+
+          <h4>Previous Works</h4>
+          <div class="work-list">
+            <div><h5><i>Atlas of AI</i> (2021)</h5><p>A critical investigation of the material, political, and ecological infrastructures underlying artificial intelligence.</p></div>
+            <div><h5><i>Excavating AI</i></h5><p>Research exploring the hidden histories and material conditions of AI systems.</p></div>
+            <div><h5>AI Now Institute</h5><p>Research on governance, ethics, accountability, and regulation of artificial intelligence.</p></div>
+            <div><h5><i>Anatomy of an AI System</i> (2018) — with Vladan Joler</h5><p>Large-scale diagram revealing the ecological, labor, logistical, and computational infrastructures supporting Amazon Echo.</p></div>
+          </div>
+
+          <h4>Research Practice</h4>
+          <p>Crawford's practice combines academic research, writing, policy analysis, and critical theory. Her work consistently challenges narratives that present AI as neutral or autonomous, instead revealing its dependence on political, economic, environmental, and social systems.</p>
+        </section>
+
+        <section class="genealogy-section researcher-profile">
+          <h3>Vladan Joler</h3>
+          <h4>Academic Background</h4>
+          <p>Serbian researcher, artist, professor, and founder of SHARE Lab. His work investigates the invisible infrastructures of digital technologies through mapping, open-source intelligence, investigative research, and information visualization.</p>
+
+          <h4>Research Themes</h4>
+          <ul class="tag-list">
+            <li>Digital Infrastructures</li><li>Surveillance</li><li>Data Extraction</li><li>Platform Capitalism</li><li>Internet Architecture</li><li>Information Visualization</li><li>Open-source Investigation</li>
+          </ul>
+
+          <h4>Previous Works</h4>
+          <div class="work-list">
+            <div><h5><i>Facebook Algorithmic Factory</i></h5><p>Investigation into Facebook's data collection and algorithmic infrastructure.</p></div>
+            <div><h5><i>New Extractivism</i></h5><p>Research mapping contemporary forms of digital extraction and resource exploitation.</p></div>
+            <div><h5><i>Anatomy of an AI System</i> (2018) — with Kate Crawford</h5><p>Collaborative visualization exposing the hidden systems sustaining AI technologies.</p></div>
+          </div>
+
+          <h4>Research Practice</h4>
+          <p>Joler's methodology combines investigative journalism, archival research, systems thinking, and large-scale visual mapping. Rather than producing conventional diagrams, his work constructs dense cartographies that reveal hidden technological and political relationships.</p>
+        </section>
+
+        <section class="genealogy-section">
+          <h3>Shared Practice</h3>
+          <h4>Convergence</h4>
+          <p>Although coming from different disciplinary backgrounds, Crawford and Joler share a common research methodology centered on exposing invisible systems of power through interdisciplinary investigation.</p>
+          <p>Their collaboration combines:</p>
+          <ul class="tag-list compact-tags">
+            <li>Critical theory</li><li>Historical research</li><li>Information visualization</li><li>Investigative mapping</li><li>Archival research</li><li>Systems thinking</li>
+          </ul>
+          <p>This convergence first materialized in <i>Anatomy of an AI System</i> (2018), a project that laid the methodological foundations later expanded in <i>Calculating Empires</i>. While <i>Anatomy</i> investigated the infrastructures behind a single AI device, <i>Calculating Empires</i> extends the same investigative logic across more than five centuries of technological, political, and economic history.</p>
+        </section>
+
+        <section class="genealogy-section">
+          <h3>Key Influences</h3>
+          <div class="influence-grid">
+            <div><h4>Theoretical Influences</h4><ul><li>Science and Technology Studies (STS)</li><li>Critical AI Studies</li><li>Media Archaeology</li><li>Genealogical Method</li><li>Critical Cartography</li></ul></div>
+            <div><h4>Methodological Influences</h4><ul><li>Archival Research</li><li>Investigative Journalism</li><li>Historical Genealogy</li><li>Systems Mapping</li><li>Information Design</li></ul></div>
+            <div><h4>Visual Influences</h4><ul><li>Historical atlases</li><li>Systems diagrams</li><li>Information graphics</li><li>Network cartography</li><li>Scientific visualization</li></ul></div>
+          </div>
+        </section>
+
+        <section class="genealogy-section synthesis-section">
+          <h3>Genealogical Synthesis</h3>
+          <p>The genealogy of <i>Calculating Empires</i> cannot be reduced to the biographies of its authors. Instead, it emerges from the intersection of two complementary practices: Crawford's critical investigation of artificial intelligence as a political and material system, and Joler's expertise in visualizing complex technological infrastructures. Their collaboration produces a hybrid methodology in which historical research, critical theory, investigative mapping, and information design become inseparable. The resulting project is therefore both a historical archive and a visual argument about the long-term evolution of technology and power.</p>
+        </section>
       </div>
       <button class="resize-corner" type="button" aria-label="Resize Overview"></button>
     </article>
 
     <article class="window" id="ontology-window" data-window hidden style="--x: 30vw; --y: 18vh; --w: 50vw; --h: 64vh;">
       <header class="title-bar" data-drag-handle>
-        <button class="window-control close" type="button" data-action="close" aria-label="Close Ontology"></button>
-        <span class="title-stripes" aria-hidden="true"></span><h2>Ontological Analysis</h2><span class="title-stripes" aria-hidden="true"></span>
-        <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Ontology"></button>
+        <button class="window-control close" type="button" data-action="close" aria-label="Close Critical Reading"></button>
+        <span class="title-stripes" aria-hidden="true"></span><h2>06_Critical Reading</h2><span class="title-stripes" aria-hidden="true"></span>
+        <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Critical Reading"></button>
       </header>
-      <div class="window-content document-view">
-        <h3>What exists in the project?</h3>
-        <p>Calculating Empires maps the co-evolution of technology and systems of power over five centuries. Technology appears as an interconnected ecosystem of infrastructures, institutions, political systems, natural resources, human labor, and computational technologies.</p>
-        <h4>Four fundamental concepts</h4>
-        <ul class="system-list"><li>Communication</li><li>Computation</li><li>Classification</li><li>Control</li></ul>
-        <p>These expand into more than twenty thematic layers, including algorithms, data organization, colonialism, bureaucracy, policing, borders, architecture, military systems, surveillance infrastructures, and planetary resources.</p>
-        <h4>Modes of existence</h4>
-        <ul><li>research archive</li><li>visual map</li><li>interactive website</li><li>large-scale physical installation</li></ul>
-        <p class="callout">Its ontology is relational: meaning emerges through connections across time, rather than through individual technological artifacts.</p>
+      <div class="window-content document-view critical-record">
+        <div class="document-toolbar"><span>06_CRITICAL_READING.TXT</span><span>INTERPRETIVE RECORD</span></div>
+
+        <section class="critical-section critical-argument">
+          <header><h3>Author's Argument</h3><p>What is <i>Calculating Empires</i> arguing?</p></header>
+          <div>
+            <p><i>Calculating Empires</i> challenges the widespread perception of artificial intelligence as a recent technological breakthrough. Instead, Crawford and Joler propose that AI should be understood as the outcome of a long historical process extending over five centuries. Through the reconstruction of interconnected infrastructures, institutions, technologies, labor systems, and political structures, the project argues that computation has always been embedded within broader systems of power.</p>
+            <p>Rather than producing a chronological history of technology, the project develops a genealogy that reveals continuity instead of rupture. Progress is presented not as a sequence of isolated innovations but as the cumulative result of extraction, classification, communication, scientific knowledge, colonial expansion, and economic organization. In doing so, the map questions narratives of technological neutrality and invites the viewer to understand artificial intelligence as a socio-technical and historical phenomenon.</p>
+          </div>
+        </section>
+
+        <section class="critical-section">
+          <header><h3>Personal Interpretation</h3><p>The Grid as Apparatus</p></header>
+          <div>
+            <p>My reading of <i>Calculating Empires</i> moves beyond its historical content and focuses on the structure through which knowledge is produced. The project does not simply represent history; it actively organizes it. The grid, the taxonomy, the hierarchy of categories, and the relationships between nodes constitute a mechanism that determines how information becomes visible and how historical connections are established.</p>
+            <p>From this perspective, the map can be understood as an apparatus (<i>dispositivo</i>), in the sense developed by Michel Foucault and later expanded by Giorgio Agamben. Rather than functioning as a neutral container of information, the visualization performs operations of selection, classification, and organization that shape the conditions under which knowledge is produced. The interface therefore becomes an active epistemological structure rather than a passive representational surface.</p>
+            <p>The project's strength lies precisely in making these operations visible. Instead of concealing the mechanisms through which history is constructed, the visualization exposes classification itself as a historical and political act.</p>
+          </div>
+        </section>
+
+        <section class="critical-section">
+          <header><h3>Archive, Visibility and Control</h3></header>
+          <div>
+            <p>The visual system resembles an archive more than a conventional historical timeline. Historical actors, technologies, institutions, and infrastructures are collected, classified, and connected within a common framework. This archival logic transforms scattered historical fragments into a coherent system that can be explored from multiple perspectives.</p>
+            <p>At the same time, every archive necessarily establishes conditions of visibility and exclusion. What becomes part of the genealogy is determined through acts of selection and categorization. The project therefore illustrates how archives are never neutral repositories of information but technologies that organize memory and produce particular forms of historical knowledge.</p>
+            <p>Rather than interpreting the archive as a static collection, I understand it as an active mechanism that continuously produces relationships between heterogeneous elements.</p>
+          </div>
+        </section>
+
+        <section class="critical-section">
+          <header><h3>From Representation to Interface</h3></header>
+          <div>
+            <p>One of the most significant aspects of <i>Calculating Empires</i> is the shift from representation to interaction. The digital interface does not simply reproduce the printed map but transforms it into an exploratory environment. Navigation, zooming, and free movement encourage users to construct their own genealogical pathways instead of following a predetermined narrative.</p>
+            <p>This principle directly informed the design of my precedent study. Rather than organizing the analysis as a sequence of webpages, I developed the website as a research workspace in which multiple records can remain open simultaneously. The interface reproduces the research process itself: users compare documents, establish connections between different analytical layers, and progressively construct their own understanding of the project.</p>
+            <p>In this sense, the website does not imitate the visual appearance of <i>Calculating Empires</i>; it translates one of its methodological principles into a new interface.</p>
+          </div>
+        </section>
+
+        <section class="critical-section poster-reading-section">
+          <header><h3>Poster Reading</h3></header>
+          <div>
+            <figure class="critical-poster">
+              <img src="assets/critical-reading-poster.png" alt="Black-and-white Calculating Empires precedent-study poster showing a large temporal grid, analytical panels, and relational connections." loading="lazy">
+            </figure>
+            <p>The poster represents a synthesis of my interpretation rather than a summary of the project. Instead of reproducing the information contained in the website, it isolates the relational structure that I consider central to <i>Calculating Empires</i>: the production of knowledge through networks of historical relationships.</p>
+            <p>The diagram visualizes the convergence between genealogy, methodology, representation, and critical interpretation. By reducing the amount of text and emphasizing connections, the poster shifts attention from individual historical events toward the operations that organize them. It therefore functions as an analytical abstraction of the precedent rather than as a simplified version of the original map.</p>
+          </div>
+        </section>
+
+        <section class="critical-section">
+          <header><h3>Website Reading</h3></header>
+          <div>
+            <figure class="critical-website-shot">
+              <img src="assets/critical-reading-website.png" alt="Screenshot of the Calculating Empires precedent-study website, showing overlapping archive windows for metadata, the relational diagram, and the critical reading." loading="lazy">
+            </figure>
+            <p>The website extends this interpretation through interaction. Conceived as a digital research archive, it abandons the conventional structure of a linear website in favor of a workspace composed of multiple independent records. Each window corresponds to a specific analytical operation—identification, genealogy, contextualization, methodological reconstruction, visual analysis, or critical interpretation—and can remain open simultaneously.</p>
+            <p>This interface reflects the way research is actually conducted: not through sequential reading, but through continuous comparison between heterogeneous documents. By allowing several analytical layers to coexist on the screen, the website encourages users to build their own investigative pathways. The interface itself becomes a methodological statement, translating the relational logic of <i>Calculating Empires</i> into a navigable research environment.</p>
+          </div>
+        </section>
+
+        <section class="critical-section final-reflection">
+          <header><h3>Final Reflection</h3></header>
+          <div>
+            <p>Rather than treating <i>Calculating Empires</i> as a finished artifact, this precedent study understands it as a methodological model for investigating complex systems. My analysis suggests that the project's most significant contribution lies not only in the historical narrative it constructs, but in the operations through which that narrative becomes possible. Classification, visualization, navigation, and archival organization are not merely representational techniques; they are epistemological practices that shape how knowledge is produced. My website and relational diagram therefore reinterpret these operations, transforming the precedent itself into an interactive research apparatus through which new connections and critical readings can emerge.</p>
+          </div>
+        </section>
       </div>
       <button class="resize-corner" type="button" aria-label="Resize Ontology"></button>
     </article>
@@ -121,16 +312,43 @@
     <article class="window" id="history-window" data-window hidden style="--x: 14vw; --y: 21vh; --w: 55vw; --h: 58vh;">
       <header class="title-bar" data-drag-handle>
         <button class="window-control close" type="button" data-action="close" aria-label="Close History"></button>
-        <span class="title-stripes" aria-hidden="true"></span><h2>Historical Context</h2><span class="title-stripes" aria-hidden="true"></span>
+        <span class="title-stripes" aria-hidden="true"></span><h2>02_Context</h2><span class="title-stripes" aria-hidden="true"></span>
         <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize History"></button>
       </header>
-      <div class="window-content document-view">
-        <h3>Historical &amp; Contextual Analysis</h3>
-        <p>Developed in 2023, Calculating Empires responds to the rise of artificial intelligence, platform capitalism, and opaque computational infrastructures.</p>
-        <p>Instead of treating AI as a recent breakthrough, the project situates it in a trajectory beginning around 1500, when European colonial expansion, global trade networks, and the printing press transformed systems of communication and political power.</p>
-        <blockquote>How did contemporary computational systems emerge, and what historical structures of power continue to shape them?</blockquote>
-        <p>The project argues that today’s computational systems inherit historical structures of extraction, classification, surveillance, and colonial governance. Technological progress is not presented as a linear narrative: communications, institutions, economies, and imperial expansion continuously reinforce one another.</p>
-        <div class="timeline" aria-label="Timeline from 1500 to the present"><span>1500</span><i></i><span>2025</span></div>
+      <div class="window-content document-view context-record">
+        <div class="document-toolbar"><span>02_CONTEXT.TXT</span><span>RESEARCH CONTEXT</span></div>
+
+        <section class="context-section">
+          <h3>Introduction</h3>
+          <p><i>Calculating Empires</i> was developed as a response to contemporary narratives that present artificial intelligence as an unprecedented technological revolution. Instead of treating AI as a recent innovation, the project reconstructs a much longer history of technological systems, tracing the political, economic, scientific, and cultural conditions that have shaped computational power over more than five centuries. By extending the temporal frame from the present back to 1500, the project challenges dominant accounts of technological progress and proposes genealogy as a method for understanding contemporary digital infrastructures.</p>
+        </section>
+
+        <section class="context-section">
+          <h3>Project Motivation</h3>
+          <p>The project seeks to reveal that contemporary computational systems did not emerge in isolation. Artificial intelligence is presented as the latest manifestation of historical processes involving extraction, colonial expansion, labor, communication, military development, scientific classification, and the organization of knowledge. Rather than documenting isolated inventions, <i>Calculating Empires</i> investigates how multiple systems evolved together, producing the conditions that made modern computation possible.</p>
+        </section>
+
+        <section class="context-section">
+          <h3>Research Context</h3>
+          <p>The project was developed through an interdisciplinary collaboration between researcher Kate Crawford and artist-researcher Vladan Joler. Their practice combines historical research, critical theory, archival investigation, and information visualization to examine the relationships between technology and power. Drawing from hundreds of historical sources across different disciplines, the project assembles a large-scale visual archive that encourages exploration rather than linear reading. This approach reflects a broader research culture that values open investigation, cross-disciplinary collaboration, and visual methods as tools for critical inquiry.</p>
+        </section>
+
+        <section class="context-section">
+          <h3>Exhibition Context</h3>
+          <p><i>Calculating Empires</i> exists simultaneously as a large-scale printed map, an interactive digital platform, and an exhibition installation. These multiple formats are fundamental to the project. The printed version encourages close reading of the complete genealogy, while the digital interface allows users to zoom, navigate, and explore individual relationships across the map. Rather than functioning as separate outputs, both formats support different modes of engaging with the same research.</p>
+        </section>
+
+        <section class="context-section">
+          <h3>Intended Audience</h3>
+          <p>Although grounded in academic research, <i>Calculating Empires</i> addresses a broad audience that includes researchers, designers, architects, artists, students, curators, policymakers, and the general public. The project combines scholarly investigation with visual communication, making complex historical relationships accessible through an interactive interface and large-scale cartographic representation.</p>
+        </section>
+
+        <section class="context-section context-summary">
+          <h3>Context Summary</h3>
+          <p>Produced during a period of renewed global attention toward artificial intelligence, <i>Calculating Empires</i> responds by shifting the discussion away from technological novelty toward historical continuity. Instead of asking what artificial intelligence will become, the project asks how centuries of political, economic, scientific, and technological developments have collectively produced the conditions in which contemporary AI exists today.</p>
+        </section>
+
+        <div class="timeline" aria-label="Timeline from 1500 to the present"><span>1500</span><i></i><span>PRESENT</span></div>
       </div>
       <button class="resize-corner" type="button" aria-label="Resize History"></button>
     </article>
@@ -138,14 +356,114 @@
     <article class="window" id="visual-window" data-window hidden style="--x: 25vw; --y: 10vh; --w: 60vw; --h: 70vh;">
       <header class="title-bar" data-drag-handle>
         <button class="window-control close" type="button" data-action="close" aria-label="Close Visual System"></button>
-        <span class="title-stripes" aria-hidden="true"></span><h2>Visual &amp; Aesthetic System</h2><span class="title-stripes" aria-hidden="true"></span>
+        <span class="title-stripes" aria-hidden="true"></span><h2>03_Visual System</h2><span class="title-stripes" aria-hidden="true"></span>
         <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Visual System"></button>
       </header>
-      <div class="window-content document-view two-column-document">
-        <section><h3>Visual Language</h3><p>The visual language combines historical cartography, scientific diagrams, archival illustration, and information design. Thousands of hand-drawn elements, texts, and symbols form a timeline that demands exploration rather than quick consumption.</p></section>
-        <section><h3>Representation Strategy</h3><p>The composition uses two primary axes:</p><ul><li><b>Vertical:</b> time, 1500–today</li><li><b>Horizontal:</b> communication, computation, classification, control</li></ul><p>Users follow technologies, institutions, periods, or concepts to construct their own path.</p></section>
-        <section><h3>Design References</h3><p>The project draws from historical atlases, critical cartography, and large-scale diagrammatic systems, treating visual representation as both analytical and political.</p></section>
-        <section class="diagram-sample" aria-label="Diagrammatic sample"><b>TIME</b><i></i><b>SYSTEMS</b><i></i><b>POWER</b></section>
+      <div class="window-content document-view visual-record">
+        <div class="document-toolbar"><span>03_VISUAL_SYSTEM.TXT</span><span>VISUAL ANALYSIS</span></div>
+
+        <section class="visual-section visual-introduction">
+          <h3>Introduction</h3>
+          <p>The visual language of <i>Calculating Empires</i> is not a neutral method of displaying information but a critical instrument for constructing knowledge. Every graphical decision—from the organization of the grid to the hierarchy of labels, the density of information, and the interactive interface—supports the project's central argument: technology and power evolve through interconnected historical systems rather than isolated innovations. The visualization functions simultaneously as a map, an archive, and a research interface.</p>
+        </section>
+
+        <section class="visual-section">
+          <header><h3>Ontology</h3><p>What exists in the visualization?</p></header>
+          <div>
+            <p>The project is composed of multiple visual entities that together construct a navigable historical system.</p>
+            <p>These include:</p>
+            <ul class="visual-entity-list">
+              <li>Historical nodes</li><li>Temporal timeline</li><li>Thematic categories</li><li>Networks of relationships</li><li>Labels and annotations</li><li>Images and illustrations</li><li>Connecting lines</li><li>Interactive interface</li><li>Zoom and navigation tools</li>
+            </ul>
+            <p>Rather than functioning independently, these elements create a layered representation where each component contributes to the reconstruction of historical relationships.</p>
+          </div>
+        </section>
+
+        <section class="visual-section">
+          <header><h3>Composition</h3><p>How is the information organized?</p></header>
+          <div>
+            <p>The visualization adopts a large-scale cartographic composition that prioritizes exploration over linear reading.</p>
+            <p>Information is organized through:</p>
+            <ul class="visual-list">
+              <li>a continuous horizontal timeline spanning from 1500 to the present;</li>
+              <li>a vertical classification system grouping different domains of technological development;</li>
+              <li>multiple scales of reading, from planetary overview to individual historical events;</li>
+              <li>dense spatial organization encouraging comparative observation.</li>
+            </ul>
+            <p>Instead of guiding users through a predefined sequence, the composition supports multiple reading paths.</p>
+          </div>
+        </section>
+
+        <section class="visual-section">
+          <header><h3>Visual Language</h3><p>Graphic vocabulary</p></header>
+          <div>
+            <p>The project employs a restrained visual language that emphasizes clarity while maintaining an extraordinary level of informational density.</p>
+            <p>Its primary graphic components include:</p>
+            <ul class="visual-entity-list">
+              <li>monochromatic palette</li><li>fine linework</li><li>hierarchical typography</li><li>minimal color coding</li><li>scientific diagram conventions</li><li>archival aesthetics</li><li>information graphics</li>
+            </ul>
+            <p>The visual language avoids decorative elements and instead reinforces the project's documentary character.</p>
+          </div>
+        </section>
+
+        <section class="visual-section">
+          <header><h3>Information Architecture</h3></header>
+          <div>
+            <p>Rather than representing isolated objects, the visualization organizes knowledge through relationships.</p>
+            <p>Its architecture is based on:</p>
+            <ul class="visual-entity-list compact-entities">
+              <li>classification</li><li>taxonomy</li><li>hierarchy</li><li>temporal sequencing</li><li>cross-referencing</li><li>thematic clustering</li>
+            </ul>
+            <p>These organizational strategies transform the map into an interface for navigating historical complexity.</p>
+          </div>
+        </section>
+
+        <section class="visual-section">
+          <header><h3>Interface</h3></header>
+          <div>
+            <p>The digital version extends the printed map through interaction.</p>
+            <p>Users can:</p>
+            <ul class="visual-list action-list">
+              <li>zoom across multiple scales;</li><li>pan freely through the map;</li><li>access individual historical entries;</li><li>navigate thematic categories;</li><li>compare distant historical moments;</li><li>construct personalized reading paths.</li>
+            </ul>
+            <p>Interaction therefore becomes part of the research process rather than a simple navigation tool.</p>
+          </div>
+        </section>
+
+        <section class="visual-section">
+          <header><h3>Representation</h3></header>
+          <div>
+            <p>The project deliberately avoids conventional historical timelines or chronological narratives.</p>
+            <p>Instead, it combines:</p>
+            <ul class="representation-stack">
+              <li>atlas</li><li>archive</li><li>network</li><li>taxonomy</li><li>systems diagram</li><li>historical cartography</li>
+            </ul>
+            <p>The result is a hybrid representational system situated between scientific visualization and critical design.</p>
+          </div>
+        </section>
+
+        <section class="visual-section visual-argument">
+          <header><h3>Visual Argument</h3></header>
+          <div>
+            <p>The visual system itself communicates the project's critical position.</p>
+            <p>The extreme density of information, the continuous timeline, and the interconnected networks suggest that technological development cannot be understood through isolated inventions or individual actors.</p>
+            <p>Instead, the visualization argues that technologies emerge through overlapping infrastructures, institutions, labor systems, and political structures distributed across long historical durations.</p>
+            <p>The map therefore functions not simply as a representation of history but as an argument about how history should be interpreted.</p>
+          </div>
+        </section>
+
+        <section class="visual-section key-visual-principles">
+          <header><h3>Key Visual Principles</h3></header>
+          <ol>
+            <li>Density over simplification</li>
+            <li>Relationships over objects</li>
+            <li>Genealogy over chronology</li>
+            <li>Exploration over linear reading</li>
+            <li>Systems over individual technologies</li>
+            <li>Archive over illustration</li>
+            <li>Navigation over narration</li>
+          </ol>
+        </section>
       </div>
       <button class="resize-corner" type="button" aria-label="Resize Visual System"></button>
     </article>
@@ -153,39 +471,136 @@
     <article class="window" id="method-window" data-window hidden style="--x: 10vw; --y: 9vh; --w: 62vw; --h: 70vh;">
       <header class="title-bar" data-drag-handle>
         <button class="window-control close" type="button" data-action="close" aria-label="Close Methodology"></button>
-        <span class="title-stripes" aria-hidden="true"></span><h2>Methodology</h2><span class="title-stripes" aria-hidden="true"></span>
+        <span class="title-stripes" aria-hidden="true"></span><h2>04_Methodology</h2><span class="title-stripes" aria-hidden="true"></span>
         <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Methodology"></button>
       </header>
-      <div class="window-content document-view">
-        <h3>From historical inquiry to interactive genealogy</h3>
-        <ol class="process-list">
-          <li><b>Research</b><span>frames a long historical duration and identifies recurring patterns.</span></li>
-          <li><b>Organization</b><span>classifies material through themes, topics, time, and systems.</span></li>
-          <li><b>Visualization</b><span>encodes relations through diagrams, drawings, and a thematic diptych.</span></li>
-          <li><b>Interaction</b><span>supports navigation, zoom, slow reading, annotation, and plural interpretation.</span></li>
-        </ol>
-        <p class="callout">Documented outcomes are distinguished from inferred production steps and unresolved archival or bibliographic procedures.</p>
+      <div class="window-content document-view methodology-record">
+        <div class="document-toolbar"><span>04_METHODOLOGY.TXT</span><span>RESEARCH WORKFLOW</span></div>
+
+        <header class="methodology-heading">
+          <p>RESEARCH PROCESS / CE.04</p>
+          <h3>METHODOLOGY</h3>
+        </header>
+
+        <section class="methodology-section">
+          <h4>Introduction</h4>
+          <p><i>Calculating Empires</i> adopts an interdisciplinary research methodology that combines historical inquiry with information design. Rather than documenting technological history chronologically, the project develops a systematic process for identifying, organizing, and connecting heterogeneous historical materials into a coherent genealogical framework.</p>
+        </section>
+
+        <section class="methodology-section">
+          <h4>Research Strategy</h4>
+          <p>The research begins by identifying historical developments that have contributed to the emergence of contemporary computational systems. Instead of focusing on individual inventions, the project investigates long-term relationships between technologies, institutions, political structures, economic systems, and forms of labor.</p>
+        </section>
+
+        <section class="methodology-section">
+          <h4>Data Organization</h4>
+          <p>Collected materials are structured through a taxonomy that allows different historical processes to be compared across time. Categories function as analytical tools, enabling relationships to emerge between events that would normally be studied separately.</p>
+        </section>
+
+        <section class="methodology-section">
+          <h4>Visual Synthesis</h4>
+          <p>Once organized, the information is translated into a unified visual framework. Rather than illustrating pre-existing conclusions, visualization becomes an active part of the analytical process, allowing complex relationships to be observed simultaneously across multiple temporal and thematic scales.</p>
+        </section>
+
+        <section class="methodology-section">
+          <h4>Interactive Exploration</h4>
+          <p>The digital interface extends the research by allowing users to construct their own investigative paths. Navigation, zoom, and filtering support non-linear exploration, transforming the visualization into an open research environment rather than a fixed historical narrative.</p>
+        </section>
+
+        <section class="methodology-framework">
+          <h4>Methodological Framework</h4>
+          <p>The methodology can be summarized as a sequence of interconnected operations:</p>
+          <ol class="method-flow">
+            <li>Historical Research</li>
+            <li>Source Selection</li>
+            <li>Classification</li>
+            <li>Relationship Mapping</li>
+            <li>Visual Synthesis</li>
+            <li>Interactive Exploration</li>
+          </ol>
+        </section>
       </div>
       <button class="resize-corner" type="button" aria-label="Resize Methodology"></button>
+    </article>
+
+    <article class="window" id="relational-window" data-window hidden style="--x: 8vw; --y: 5vh; --w: 84vw; --h: 84vh;">
+      <header class="title-bar" data-drag-handle>
+        <button class="window-control close" type="button" data-action="close" aria-label="Close Relational Diagram"></button>
+        <span class="title-stripes" aria-hidden="true"></span><h2>05_Relational Diagram</h2><span class="title-stripes" aria-hidden="true"></span>
+        <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Relational Diagram"></button>
+      </header>
+      <div class="window-content document-view relational-record">
+        <iframe class="embedded-relational-diagram" src="diagram/index.html" title="Interactive relational diagram of Calculating Empires" loading="lazy"></iframe>
+        <div class="relational-introduction">
+          <p>Rather than representing a simple workflow or organizational hierarchy, this relational diagram reconstructs the network of relationships that produced <i>Calculating Empires</i>. It maps the convergence of authors, research practices, previous projects, methodological approaches, and conceptual influences that collectively shaped the project.</p>
+          <p>The diagram is organized into interconnected clusters corresponding to the main dimensions of the precedent study: <b>Project Genealogy</b>, <b>Context</b>, <b>Visual System</b>, <b>Methodology</b>, and <b>Critical Reading</b>. Each node represents a specific component of the research, while the connections describe how these components influence and reinforce one another.</p>
+          <p>Rather than following a linear sequence, the network reflects the interdisciplinary nature of <i>Calculating Empires</i>. Historical research, critical theory, information visualization, and investigative mapping operate simultaneously, producing a system in which knowledge emerges through relationships rather than isolated elements.</p>
+          <p>The relational diagram therefore functions as both an analytical synthesis of the precedent and a navigational framework for the website, allowing the different layers of the project to be explored as an interconnected research archive.</p>
+        </div>
+      </div>
+      <button class="resize-corner" type="button" aria-label="Resize Relational Diagram"></button>
     </article>
 
     <article class="window" id="sources-window" data-window hidden style="--x: 34vw; --y: 12vh; --w: 52vw; --h: 65vh;">
       <header class="title-bar" data-drag-handle>
         <button class="window-control close" type="button" data-action="close" aria-label="Close Bibliography"></button>
-        <span class="title-stripes" aria-hidden="true"></span><h2>Bibliography</h2><span class="title-stripes" aria-hidden="true"></span>
+        <span class="title-stripes" aria-hidden="true"></span><h2>07_Sources</h2><span class="title-stripes" aria-hidden="true"></span>
         <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize Bibliography"></button>
       </header>
-      <div class="window-content document-view">
-        <h3>Sources</h3>
-        <ul class="link-list">
-          <li><a href="https://calculatingempires.net" target="_blank" rel="noopener">Official project</a></li>
-          <li><a href="https://knowingmachines.org/publications/calculating-empires" target="_blank" rel="noopener">Knowing Machines</a></li>
-          <li><a href="https://www.fondazioneprada.org/project/calculating-empires" target="_blank" rel="noopener">Fondazione Prada</a></li>
-          <li><a href="https://ars.electronica.art/starts-prize/en/calculating-empires" target="_blank" rel="noopener">Ars Electronica</a></li>
-          <li><a href="https://www.rijksmuseumtwenthe.nl/en/see-and-do/calculating-empires" target="_blank" rel="noopener">Rijksmuseum Twenthe</a></li>
-          <li><a href="https://kottke.org/24/06/a-genealogy-of-technology-and-power-since-1500" target="_blank" rel="noopener">Kottke</a></li>
-          <li><a href="https://necsus-ejms.org/a-time-panorama-unpacking-calculating-empires" target="_blank" rel="noopener">NECSUS</a></li>
-        </ul>
+      <div class="window-content document-view sources-record">
+        <div class="document-toolbar"><span>07_SOURCES.BIB</span><span>REFERENCE RECORD</span></div>
+
+        <section class="source-section">
+          <header><h3>Primary Sources</h3></header>
+          <ol class="bibliography-list">
+            <li>Crawford, K., &amp; Joler, V. (2023). <i>Calculating Empires: A Genealogy of Technology and Power Since 1500.</i> Interactive website. <a href="https://calculatingempires.net" target="_blank" rel="noopener">calculatingempires.net</a></li>
+            <li>Crawford, K., &amp; Joler, V. (2023). <i>Calculating Empires.</i> Large-scale printed map and exhibition.</li>
+            <li>Fondazione Prada. (2023). <i>Calculating Empires.</i> Exhibition documentation. <a href="https://www.fondazioneprada.org/project/calculating-empires/" target="_blank" rel="noopener">fondazioneprada.org</a></li>
+          </ol>
+        </section>
+
+        <section class="source-section">
+          <header><h3>Related Works by the Authors</h3></header>
+          <ol class="bibliography-list">
+            <li>Crawford, K. (2021). <i>Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence.</i> Yale University Press.</li>
+            <li>Crawford, K., &amp; Joler, V. (2018). <i>Anatomy of an AI System.</i> AI Now Institute &amp; SHARE Lab. <a href="https://anatomyof.ai" target="_blank" rel="noopener">anatomyof.ai</a></li>
+            <li>Joler, V. (2020). <i>New Extractivism.</i></li>
+            <li>Joler, V. (2019). <i>Facebook Algorithmic Factory.</i></li>
+          </ol>
+        </section>
+
+        <section class="source-section">
+          <header><h3>Interviews and Project Discussions</h3></header>
+          <ol class="bibliography-list">
+            <li>Fondazione Prada. (2023). <i>Calculating Empires</i> — Exhibition texts and interviews.</li>
+            <li>Kate Crawford. Official website. <a href="https://katecrawford.net" target="_blank" rel="noopener">katecrawford.net</a></li>
+            <li>Vladan Joler. Official website. <a href="https://joler.org" target="_blank" rel="noopener">joler.org</a></li>
+            <li>The New Institute. (2023). <i>Calculating Empires</i> project presentation.</li>
+          </ol>
+        </section>
+
+        <section class="source-section">
+          <header><h3>Theoretical References</h3></header>
+          <ol class="bibliography-list">
+            <li>Agamben, G. (2009). <i>What Is an Apparatus?</i> Stanford University Press.</li>
+            <li>Foucault, M. (1972). <i>The Archaeology of Knowledge.</i> Pantheon Books.</li>
+            <li>Foucault, M. (1977). <i>Discipline and Punish: The Birth of the Prison.</i> Pantheon Books.</li>
+            <li>Glissant, É. (1997). <i>Poetics of Relation.</i> University of Michigan Press.</li>
+            <li>Latour, B. (2005). <i>Reassembling the Social: An Introduction to Actor-Network-Theory.</i> Oxford University Press.</li>
+            <li>Wenger, E. (1998). <i>Communities of Practice: Learning, Meaning, and Identity.</i> Cambridge University Press.</li>
+          </ol>
+        </section>
+
+        <section class="source-section">
+          <header><h3>Selected Reviews</h3></header>
+          <ol class="bibliography-list">
+            <li>MoMA. (2023). <i>Calculating Empires</i> — Collection entry.</li>
+            <li>COEVAL Magazine. (2023). <i>Calculating Empires</i> review.</li>
+            <li>Designboom. (2023). “Kate Crawford &amp; Vladan Joler map 500 years of technology and power.”</li>
+          </ol>
+        </section>
+
+        <aside class="sources-note"><strong>Note:</strong> This precedent study is based on the official project documentation, publications by the authors, exhibition materials, interviews, and selected theoretical references that informed the critical interpretation presented throughout this archive.</aside>
       </div>
       <button class="resize-corner" type="button" aria-label="Resize Bibliography"></button>
     </article>
@@ -196,13 +611,13 @@
         <span class="title-stripes" aria-hidden="true"></span><h2>About This Archive</h2><span class="title-stripes" aria-hidden="true"></span>
         <button class="window-control zoom" type="button" data-action="maximize" aria-label="Maximize About"></button>
       </header>
-      <div class="window-content document-view"><h3>Module 1</h3><p>A precedent-study interface modeled as a monochrome desktop archive. Each folder opens a different analytical layer of Calculating Empires.</p><p>Drag the striped title bar. Use the square controls to close or maximize. Resize windows from the bottom-right corner.</p></div>
+      <div class="window-content document-view"><h3>Spatial Archive</h3><p>A precedent-study interface organized as a layered field of research panels. Each translucent record opens a different analytical layer of <i>Calculating Empires</i>.</p><p>Drag the header to reposition a record. Use the controls to close or expand it. Resize records from the bottom-right corner.</p></div>
       <button class="resize-corner" type="button" aria-label="Resize About"></button>
     </article>
   </main>
 
   <footer class="window-shelf" aria-label="Open windows">
-    <span>OPEN WINDOWS:</span>
+    <span>ACTIVE RECORDS //</span>
     <div id="shelf-items"></div>
   </footer>
 

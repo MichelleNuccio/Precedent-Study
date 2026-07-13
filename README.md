@@ -1,16 +1,18 @@
-# Calculating Empires — Desktop Archive
+# Precedent Website — Calculating Empires
 
-A static transformation of the original precedent-study page into a monochrome, early-Macintosh-style desktop interface.
+A graphic trial of the spatial archive with inverted black-and-white contrast, a rounder type system, larger text, translucent dark records, and a white animated halftone field.
+
+The desktop folders are: `00_Metadata`, `01_Genealogy`, `02_Context`, `03_Visual System`, `04_Methodology`, `05_Relational Diagram`, `06_Critical Reading`, and `07_Sources`.
 
 ## Run
 
-Open `index.html` directly or use VS Code Live Server. No installation or build step is required.
+Keep the complete `Precedent Website` folder intact, then open the root `index.html` directly or use VS Code Live Server. No installation or build step is required.
 
 ## Interaction
 
 - Double-click a folder to open it. On touch screens, tap once.
 - Press Enter or Space while a folder has keyboard focus.
-- Drag a striped window title bar to move the window.
+- Drag a record header to move the window.
 - Double-click the title bar or use the upper-right square to maximize/restore.
 - Use the upper-left square to close.
 - Use the bottom shelf to bring open windows forward or minimize the active one.
@@ -20,7 +22,9 @@ Open `index.html` directly or use VS Code Live Server. No installation or build 
 ## Files
 
 - `index.html`: desktop, folders, windows, and study content.
-- `style.css`: monochrome Macintosh-inspired visual system and responsive layout.
-- `app.js`: window opening, stacking, dragging, minimizing, maximizing, closing, keyboard behavior, and clock.
+- `style.css`: spatial monochrome archive system and responsive layout.
+- `app.js`: window behavior, keyboard controls, clock, and the responsive animated dot field.
+- `diagram/`: interactive D3 relational diagram embedded in `05_Relational Diagram`.
+  Its branches expand and collapse recursively when their nodes are clicked.
 
-The source files on `H:` were not modified. Copy these three files into the original `Website-History` folder after keeping a backup of the existing version.
+All internal paths are relative to this folder. The diagram uses `diagram/index.html`, `diagram/styles.css`, and `diagram/d3.js`; images are loaded from `assets/`.

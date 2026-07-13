@@ -89,7 +89,7 @@ const nodes = [
     theme: "all",
     type: "Nodo centrale",
     radius: 25,
-    note: "A Genealogy of Technology and Power Since 1500. Tutti i cluster si leggono in relazione a questo nodo centrale.",
+    note: "A Genealogy of Power and Technology from 1500 to the Present. Tutti i cluster si leggono in relazione a questo nodo centrale.",
   },
   { id: "shared-practice", label: "SHARED PRACTICE", parent: "root", period: "Origins", theme: "genealogy", type: "Research Practice", radius: 18, note: "This node represents the convergence of Kate Crawford's critical AI research and Vladan Joler's investigative mapping practice. Before Calculating Empires, their collaboration developed a shared methodology that combines historical research, critical theory and diagrammatic visualization to investigate technological infrastructures." },
 
@@ -255,6 +255,7 @@ d3.select("#reset-view").on("click", () => {
   activePeriod = "All";
   visibleNodeIds = new Set(["root", ...INTRO_CLUSTER_IDS]);
   expandedNodeIds.clear();
+  expandedNodeIds.add("root");
   simulation.alpha(0.65).restart();
   clearDetails();
   updateFilters();
@@ -306,9 +307,10 @@ const nodeSelection = nodeLayer
   .on("click", (_, node) => {
     if (appState !== APP_STATES.OPEN) return;
     selectedId = node.id;
-    revealDirectChildren(node.id);
+    toggleBranch(node.id);
     updateDetails(node);
     updateFilters();
+    simulation.alpha(0.42).restart();
   });
 
 // Draws the square for each node.
@@ -465,12 +467,43 @@ function linkIsRevealed(link) {
   return visibleNodeIds.has(getLinkSourceId(link)) && visibleNodeIds.has(getLinkTargetId(link));
 }
 
-function revealDirectChildren(nodeId) {
-  if (expandedNodeIds.has(nodeId)) return;
+function getDirectChildren(nodeId) {
+  return nodes.filter((node) => node.parent === nodeId);
+}
+
+function getDescendantIds(nodeId) {
+  const descendants = new Set();
+  const pending = getDirectChildren(nodeId).map((node) => node.id);
+
+  while (pending.length) {
+    const currentId = pending.pop();
+    if (descendants.has(currentId)) continue;
+    descendants.add(currentId);
+    getDirectChildren(currentId).forEach((node) => pending.push(node.id));
+  }
+
+  return descendants;
+}
+
+function expandBranch(nodeId) {
+  const children = getDirectChildren(nodeId);
+  if (!children.length) return;
   expandedNodeIds.add(nodeId);
-  nodes
-    .filter((node) => node.parent === nodeId)
-    .forEach((node) => visibleNodeIds.add(node.id));
+  children.forEach((node) => visibleNodeIds.add(node.id));
+}
+
+function collapseBranch(nodeId) {
+  expandedNodeIds.delete(nodeId);
+  getDescendantIds(nodeId).forEach((descendantId) => {
+    visibleNodeIds.delete(descendantId);
+    expandedNodeIds.delete(descendantId);
+  });
+}
+
+function toggleBranch(nodeId) {
+  if (!getDirectChildren(nodeId).length) return;
+  if (expandedNodeIds.has(nodeId)) collapseBranch(nodeId);
+  else expandBranch(nodeId);
 }
 
 // Applies filter and selected-node styling.
@@ -480,6 +513,7 @@ function updateFilters() {
 
   nodeSelection
     .classed("is-selected", (node) => node.id === selectedId)
+    .classed("is-expanded", (node) => expandedNodeIds.has(node.id))
     .classed("is-dimmed", (node) => nodeIsRevealed(node) && !nodeMatches(node))
     .style("opacity", (node) => (nodeIsRevealed(node) && nodeMatches(node) ? 1 : 0))
     .style("pointer-events", (node) => (appState === APP_STATES.OPEN && nodeIsRevealed(node) && nodeMatches(node) ? "auto" : "none"));
@@ -580,6 +614,8 @@ function finishIntro() {
   introLocked = false;
   setBodyState(appState);
   visibleNodeIds = new Set(["root", ...INTRO_CLUSTER_IDS]);
+  expandedNodeIds.clear();
+  expandedNodeIds.add("root");
   clearDetails();
   updateFilters();
   showCuratorialStatement();
@@ -602,6 +638,7 @@ function startIntro() {
 
   simulation.stop();
   visibleNodeIds = new Set(["root"]);
+  expandedNodeIds.clear();
   pinIntroRoot();
   updateFilters();
 
@@ -652,6 +689,11 @@ function setupIntroGate() {
 
 // Initial setup.
 window.addEventListener("resize", resize);
+if (typeof ResizeObserver !== "undefined") {
+  const graphResizeObserver = new ResizeObserver(resize);
+  const graphWrap = document.querySelector(".graph-wrap");
+  if (graphWrap) graphResizeObserver.observe(graphWrap);
+}
 resize();
 setupIntroGate();
 clearDetails();
